@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Gestione_bottone_switch/src/helloworld.c&apos; to &apos;butt_switch_interrupt.c&apos;" description="Rename resource &apos;helloworld.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/helloworld.c" name="butt_switch_interrupt.c" stamp="1667932474270" updateReferences="true"/>
+</session>

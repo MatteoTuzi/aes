@@ -1,0 +1,87 @@
+
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "mb_interface.h"
+
+void myISR (void) __attribute__ ((interrupt_handler));
+
+
+int main()
+{
+	//indirizzi gpio led
+	int *GPIO0_DATA;
+	int *GPIO0_TRI;
+	GPIO0_DATA = 0x40000000; //indirizzo output led
+	GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+
+	//indirizzi gpio switch
+	int *GPIO1_TRI;
+	int *GPIO1_DATA;
+	int *GPIO1_GIER;
+	int *GPIO1_IPIER;
+	int data_in;
+	GPIO1_DATA =  0x40010000; //indirizzo dati input switch
+	GPIO1_TRI  =  0x40010004; //indirizzo mux
+	GPIO1_GIER =  0x4001011c; //indirizzo global interrupt
+	GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register
+
+	//indirizzi gpio button
+	int *GPIO2_TRI;
+	int *GPIO2_GIER;
+	int *GPIO2_IPIER;
+
+	//indirizzi interrupt controller
+	int *ctr_IER;
+	int *ctr_MER;
+	ctr_IER = 0x41200008;
+	ctr_MER = 0x4120001C;
+
+
+
+	*GPIO0_TRI = 0x0; //GPIO_0 in output (led)
+	*GPIO0_DATA = 0xF;
+
+	*GPIO1_TRI = 0x1; //GPIO_1 in input (switch)
+	*GPIO1_GIER = 0x80000000; //setto il global interrupt
+	*GPIO1_IPIER = 0x1; //abilito l'interrupt sul canale 1
+
+	*ctr_IER = 0x1;
+	*ctr_MER = 0x3;
+
+	microblaze_enable_interrupts ();
+
+	while(1){
+		;
+	}
+}
+
+int check=0;
+void myISR (void){
+	int *ctr_IAR;
+	int *GPIO0_DATA;
+	int *GPIO1_ISR;
+
+	GPIO1_ISR =  0x40010120;
+	GPIO0_DATA = 0x40000000;
+	ctr_IAR =    0x4120000c;
+
+	if(check==0){
+		*GPIO0_DATA = 0xA;
+	}
+
+	if(check==1){
+		*GPIO0_DATA = 0x4;
+	}
+
+check = !check;
+*GPIO1_ISR = 0x1;
+*ctr_IAR = 0x3;
+
+}
+
+
+
+
+
+

@@ -1,0 +1,2160 @@
+18:21:11 **** Incremental Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+make: Nothing to be done for 'all'.
+18:21:36 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2472	    260	   3108	   5840	   16d0	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:22:32 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2476	    260	   3112	   5848	   16d8	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:19:01 **** Build of project Gestione_bottone_switch_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+18:19:11 **** Build of configuration Debug for project Gestione_bottone_switch ****
+make all 
+'Building file: ../src/butt_switch_interrupt.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/butt_switch_interrupt.o" -I../../Gestione_bottone_switch_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/butt_switch_interrupt.d" -MT"src/butt_switch_interrupt.o" -o "src/butt_switch_interrupt.o" "../src/butt_switch_interrupt.c"
+../src/butt_switch_interrupt.c: In function 'main':
+../src/butt_switch_interrupt.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/butt_switch_interrupt.c:15:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/butt_switch_interrupt.c:23:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA =  0x40010000; //indirizzo dati input switch
+             ^
+../src/butt_switch_interrupt.c:24:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI  =  0x40010004; //indirizzo mux
+             ^
+../src/butt_switch_interrupt.c:25:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER =  0x4001011c; //indirizzo global interrupt
+             ^
+../src/butt_switch_interrupt.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register
+              ^
+../src/butt_switch_interrupt.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/butt_switch_interrupt.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004;
+            ^
+../src/butt_switch_interrupt.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c;
+             ^
+../src/butt_switch_interrupt.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128;
+             ^
+../src/butt_switch_interrupt.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008;
+          ^
+../src/butt_switch_interrupt.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C;
+          ^
+../src/butt_switch_interrupt.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/butt_switch_interrupt.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/butt_switch_interrupt.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/butt_switch_interrupt.c: In function 'myISR':
+../src/butt_switch_interrupt.c:80:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR =  0x40020120;
+            ^
+../src/butt_switch_interrupt.c:81:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR =  0x40010120;
+            ^
+../src/butt_switch_interrupt.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/butt_switch_interrupt.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/butt_switch_interrupt.c:84:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR =    0x4120000c;
+          ^
+../src/butt_switch_interrupt.c:85:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR =    0x41200000;
+          ^
+'Finished building: ../src/butt_switch_interrupt.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../Gestione_bottone_switch_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: Gestione_bottone_switch.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Gestione_bottone_switch_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Gestione_bottone_switch.elf"  ./src/butt_switch_interrupt.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Gestione_bottone_switch.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Gestione_bottone_switch.elf  |tee "Gestione_bottone_switch.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2320	    260	   3108	   5688	   1638	Gestione_bottone_switch.elf
+'Finished building: Gestione_bottone_switch.elf.size'
+' '
+18:19:13 **** Build of project Interrupt_definitivo_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+18:19:21 **** Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2476	    260	   3112	   5848	   16d8	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:19:22 **** Build of project gestione_interrupt_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+18:19:30 **** Build of configuration Debug for project gestione_interrupt ****
+make all 
+'Building file: ../src/gestione_interrupt.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/gestione_interrupt.o" -I../../gestione_interrupt_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/gestione_interrupt.d" -MT"src/gestione_interrupt.o" -o "src/gestione_interrupt.o" "../src/gestione_interrupt.c"
+../src/gestione_interrupt.c: In function 'main':
+../src/gestione_interrupt.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/gestione_interrupt.c:16:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/gestione_interrupt.c:24:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA =  0x40010000; //indirizzo dati input switch
+             ^
+../src/gestione_interrupt.c:25:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI  =  0x40010004; //indirizzo mux
+             ^
+../src/gestione_interrupt.c:26:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER =  0x4001011c; //indirizzo global interrupt
+             ^
+../src/gestione_interrupt.c:27:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register
+              ^
+../src/gestione_interrupt.c:34:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/gestione_interrupt.c:35:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004;
+            ^
+../src/gestione_interrupt.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c;
+             ^
+../src/gestione_interrupt.c:37:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40000128;
+             ^
+../src/gestione_interrupt.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008;
+          ^
+../src/gestione_interrupt.c:43:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C;
+          ^
+../src/gestione_interrupt.c:33:7: warning: variable 'GPIO2_IPIER' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_IPIER;
+       ^~~~~~~~~~~
+../src/gestione_interrupt.c:32:7: warning: variable 'GPIO2_GIER' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_GIER;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c:31:7: warning: variable 'GPIO2_TRI' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_TRI;
+       ^~~~~~~~~
+../src/gestione_interrupt.c:30:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c:23:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/gestione_interrupt.c:20:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c: In function 'myISR':
+../src/gestione_interrupt.c:72:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR =  0x40010120;
+            ^
+../src/gestione_interrupt.c:73:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/gestione_interrupt.c:74:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR =    0x4120000c;
+          ^
+../src/gestione_interrupt.c:75:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR =    0x41200000;
+          ^
+'Finished building: ../src/gestione_interrupt.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../gestione_interrupt_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: gestione_interrupt.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../gestione_interrupt_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "gestione_interrupt.elf"  ./src/gestione_interrupt.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: gestione_interrupt.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size gestione_interrupt.elf  |tee "gestione_interrupt.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2396	    260	   3120	   5776	   1690	gestione_interrupt.elf
+'Finished building: gestione_interrupt.elf.size'
+' '
+18:19:31 **** Build of project hello_interrupts_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+18:19:39 **** Build of configuration Debug for project hello_interrupts ****
+make all 
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../hello_interrupts_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building file: ../src/polling.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/polling.o" -I../../hello_interrupts_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/polling.d" -MT"src/polling.o" -o "src/polling.o" "../src/polling.c"
+../src/polling.c: In function 'main':
+../src/polling.c:13:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/polling.c:14:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/polling.c:18:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+             ^
+../src/polling.c:19:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI =  0x40010004; //indirizzo mux
+            ^
+../src/polling.c:23:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/polling.c:24:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+'Finished building: ../src/polling.c'
+' '
+'Building target: hello_interrupts.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../hello_interrupts_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "hello_interrupts.elf"  ./src/platform.o ./src/polling.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: hello_interrupts.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size hello_interrupts.elf  |tee "hello_interrupts.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2564	    320	   3108	   5992	   1768	hello_interrupts.elf
+'Finished building: hello_interrupts.elf.size'
+' '
+18:19:40 **** Build of project prova_emi_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+18:19:48 **** Build of configuration Debug for project prova_emi ****
+make all 
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../prova_emi_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building file: ../src/prova_emi.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/prova_emi.o" -I../../prova_emi_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/prova_emi.d" -MT"src/prova_emi.o" -o "src/prova_emi.o" "../src/prova_emi.c"
+../src/prova_emi.c: In function 'main':
+../src/prova_emi.c:18:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO0_DATA = 0x40000000; //indirizzo output led
+            ^
+../src/prova_emi.c:19:11: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+           ^
+../src/prova_emi.c:21:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+            ^
+../src/prova_emi.c:22:11: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO1_TRI =  0x40010004; //indirizzo mux
+           ^
+'Finished building: ../src/prova_emi.c'
+' '
+'Building target: prova_emi.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../prova_emi_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "prova_emi.elf"  ./src/platform.o ./src/prova_emi.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: prova_emi.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size prova_emi.elf  |tee "prova_emi.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2980	    320	   3108	   6408	   1908	prova_emi.elf
+'Finished building: prova_emi.elf.size'
+' '
+18:20:07 **** Incremental Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+make: Nothing to be done for 'all'.
+18:23:07 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2476	    260	   3112	   5848	   16d8	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:25:59 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2468	    260	   3112	   5840	   16d0	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:26:33 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2468	    260	   3112	   5840	   16d0	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:26:54 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2468	    260	   3112	   5840	   16d0	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:27:25 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2476	    260	   3112	   5848	   16d8	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:51:52 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2476	    260	   3112	   5848	   16d8	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+18:54:03 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:87:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2472	    260	   3108	   5840	   16d0	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+19:06:20 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:22:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:32:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:33:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:34:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:40:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:28:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:80:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2476	    260	   3112	   5848	   16d8	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+19:09:15 **** Incremental Build of configuration Debug for project hello_interrupts ****
+make all 
+make: Nothing to be done for 'all'.
+19:41:45 **** Incremental Build of configuration Debug for project hello_interrupts ****
+make all 
+'Building file: ../src/polling.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/polling.o" -I../../hello_interrupts_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/polling.d" -MT"src/polling.o" -o "src/polling.o" "../src/polling.c"
+../src/polling.c: In function 'main':
+../src/polling.c:13:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/polling.c:14:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/polling.c:18:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+             ^
+../src/polling.c:19:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI =  0x40010004; //indirizzo mux
+            ^
+../src/polling.c:23:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/polling.c:24:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+'Finished building: ../src/polling.c'
+' '
+'Building target: hello_interrupts.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../hello_interrupts_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "hello_interrupts.elf"  ./src/platform.o ./src/polling.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: hello_interrupts.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size hello_interrupts.elf  |tee "hello_interrupts.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2564	    320	   3108	   5992	   1768	hello_interrupts.elf
+'Finished building: hello_interrupts.elf.size'
+' '
+19:42:26 **** Incremental Build of configuration Debug for project hello_interrupts ****
+make all 
+make: Nothing to be done for 'all'.
+19:43:07 **** Incremental Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+make: Nothing to be done for 'all'.
+21:08:01 **** Incremental Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+make: Nothing to be done for 'all'.
+21:12:31 **** Incremental Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+make: Nothing to be done for 'all'.
+21:20:44 **** Incremental Build of configuration Debug for project hello_interrupts ****
+make all 
+make: Nothing to be done for 'all'.
+11:29:53 **** Auto Build of configuration Debug for project hello_interrupts ****
+make all 
+'Building file: ../src/polling.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/polling.o" -I../../hello_interrupts_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/polling.d" -MT"src/polling.o" -o "src/polling.o" "../src/polling.c"
+../src/polling.c: In function 'main':
+../src/polling.c:13:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/polling.c:14:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/polling.c:18:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+             ^
+../src/polling.c:19:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI =  0x40010004; //indirizzo mux
+            ^
+../src/polling.c:23:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/polling.c:24:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+'Finished building: ../src/polling.c'
+' '
+'Building target: hello_interrupts.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../hello_interrupts_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "hello_interrupts.elf"  ./src/platform.o ./src/polling.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: hello_interrupts.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size hello_interrupts.elf  |tee "hello_interrupts.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2564	    320	   3108	   5992	   1768	hello_interrupts.elf
+'Finished building: hello_interrupts.elf.size'
+' '
+21:56:45 **** Build of project Gestione_bottone_switch_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+21:56:53 **** Build of configuration Debug for project Gestione_bottone_switch ****
+make all 
+'Building file: ../src/butt_switch_interrupt.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/butt_switch_interrupt.o" -I../../Gestione_bottone_switch_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/butt_switch_interrupt.d" -MT"src/butt_switch_interrupt.o" -o "src/butt_switch_interrupt.o" "../src/butt_switch_interrupt.c"
+../src/butt_switch_interrupt.c: In function 'main':
+../src/butt_switch_interrupt.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/butt_switch_interrupt.c:15:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/butt_switch_interrupt.c:23:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA =  0x40010000; //indirizzo dati input switch
+             ^
+../src/butt_switch_interrupt.c:24:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI  =  0x40010004; //indirizzo mux
+             ^
+../src/butt_switch_interrupt.c:25:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER =  0x4001011c; //indirizzo global interrupt
+             ^
+../src/butt_switch_interrupt.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register
+              ^
+../src/butt_switch_interrupt.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/butt_switch_interrupt.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004;
+            ^
+../src/butt_switch_interrupt.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c;
+             ^
+../src/butt_switch_interrupt.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128;
+             ^
+../src/butt_switch_interrupt.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008;
+          ^
+../src/butt_switch_interrupt.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C;
+          ^
+../src/butt_switch_interrupt.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/butt_switch_interrupt.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/butt_switch_interrupt.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/butt_switch_interrupt.c: In function 'myISR':
+../src/butt_switch_interrupt.c:80:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR =  0x40020120;
+            ^
+../src/butt_switch_interrupt.c:81:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR =  0x40010120;
+            ^
+../src/butt_switch_interrupt.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/butt_switch_interrupt.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/butt_switch_interrupt.c:84:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR =    0x4120000c;
+          ^
+../src/butt_switch_interrupt.c:85:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR =    0x41200000;
+          ^
+'Finished building: ../src/butt_switch_interrupt.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../Gestione_bottone_switch_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: Gestione_bottone_switch.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Gestione_bottone_switch_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Gestione_bottone_switch.elf"  ./src/butt_switch_interrupt.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Gestione_bottone_switch.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Gestione_bottone_switch.elf  |tee "Gestione_bottone_switch.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2320	    260	   3108	   5688	   1638	Gestione_bottone_switch.elf
+'Finished building: Gestione_bottone_switch.elf.size'
+' '
+21:56:54 **** Build of project Interrupt_definitivo_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+21:57:00 **** Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+'Building file: ../src/interrupt_definitivo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/interrupt_definitivo.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/interrupt_definitivo.d" -MT"src/interrupt_definitivo.o" -o "src/interrupt_definitivo.o" "../src/interrupt_definitivo.c"
+../src/interrupt_definitivo.c: In function 'main':
+../src/interrupt_definitivo.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/interrupt_definitivo.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/interrupt_definitivo.c:22:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/interrupt_definitivo.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/interrupt_definitivo.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/interrupt_definitivo.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/interrupt_definitivo.c:32:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/interrupt_definitivo.c:33:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/interrupt_definitivo.c:34:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/interrupt_definitivo.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/interrupt_definitivo.c:40:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/interrupt_definitivo.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/interrupt_definitivo.c:28:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/interrupt_definitivo.c: In function 'myISR':
+../src/interrupt_definitivo.c:80:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/interrupt_definitivo.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/interrupt_definitivo.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/interrupt_definitivo.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/interrupt_definitivo.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/interrupt_definitivo.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/interrupt_definitivo.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/interrupt_definitivo.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../Interrupt_definitivo_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: Interrupt_definitivo.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Interrupt_definitivo_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Interrupt_definitivo.elf"  ./src/interrupt_definitivo.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Interrupt_definitivo.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Interrupt_definitivo.elf  |tee "Interrupt_definitivo.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2476	    260	   3112	   5848	   16d8	Interrupt_definitivo.elf
+'Finished building: Interrupt_definitivo.elf.size'
+' '
+21:57:01 **** Build of project gestione_interrupt_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+21:57:06 **** Build of configuration Debug for project gestione_interrupt ****
+make all 
+'Building file: ../src/gestione_interrupt.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/gestione_interrupt.o" -I../../gestione_interrupt_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/gestione_interrupt.d" -MT"src/gestione_interrupt.o" -o "src/gestione_interrupt.o" "../src/gestione_interrupt.c"
+../src/gestione_interrupt.c: In function 'main':
+../src/gestione_interrupt.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/gestione_interrupt.c:16:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/gestione_interrupt.c:24:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA =  0x40010000; //indirizzo dati input switch
+             ^
+../src/gestione_interrupt.c:25:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI  =  0x40010004; //indirizzo mux
+             ^
+../src/gestione_interrupt.c:26:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER =  0x4001011c; //indirizzo global interrupt
+             ^
+../src/gestione_interrupt.c:27:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register
+              ^
+../src/gestione_interrupt.c:34:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/gestione_interrupt.c:35:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004;
+            ^
+../src/gestione_interrupt.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c;
+             ^
+../src/gestione_interrupt.c:37:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40000128;
+             ^
+../src/gestione_interrupt.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008;
+          ^
+../src/gestione_interrupt.c:43:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C;
+          ^
+../src/gestione_interrupt.c:33:7: warning: variable 'GPIO2_IPIER' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_IPIER;
+       ^~~~~~~~~~~
+../src/gestione_interrupt.c:32:7: warning: variable 'GPIO2_GIER' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_GIER;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c:31:7: warning: variable 'GPIO2_TRI' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_TRI;
+       ^~~~~~~~~
+../src/gestione_interrupt.c:30:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c:23:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/gestione_interrupt.c:20:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c: In function 'myISR':
+../src/gestione_interrupt.c:72:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR =  0x40010120;
+            ^
+../src/gestione_interrupt.c:73:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/gestione_interrupt.c:74:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR =    0x4120000c;
+          ^
+../src/gestione_interrupt.c:75:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR =    0x41200000;
+          ^
+'Finished building: ../src/gestione_interrupt.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../gestione_interrupt_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: gestione_interrupt.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../gestione_interrupt_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "gestione_interrupt.elf"  ./src/gestione_interrupt.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: gestione_interrupt.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size gestione_interrupt.elf  |tee "gestione_interrupt.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2396	    260	   3120	   5776	   1690	gestione_interrupt.elf
+'Finished building: gestione_interrupt.elf.size'
+' '
+21:57:07 **** Build of project hello_interrupts_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+21:57:13 **** Build of configuration Debug for project hello_interrupts ****
+make all 
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../hello_interrupts_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building file: ../src/polling.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/polling.o" -I../../hello_interrupts_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/polling.d" -MT"src/polling.o" -o "src/polling.o" "../src/polling.c"
+../src/polling.c: In function 'main':
+../src/polling.c:13:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/polling.c:14:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/polling.c:18:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+             ^
+../src/polling.c:19:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI =  0x40010004; //indirizzo mux
+            ^
+../src/polling.c:23:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/polling.c:24:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+'Finished building: ../src/polling.c'
+' '
+'Building target: hello_interrupts.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../hello_interrupts_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "hello_interrupts.elf"  ./src/platform.o ./src/polling.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: hello_interrupts.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size hello_interrupts.elf  |tee "hello_interrupts.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2564	    320	   3108	   5992	   1768	hello_interrupts.elf
+'Finished building: hello_interrupts.elf.size'
+' '
+21:57:14 **** Build of project prova_emi_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+21:57:21 **** Build of configuration Debug for project prova_emi ****
+make all 
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../prova_emi_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building file: ../src/prova_emi.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/prova_emi.o" -I../../prova_emi_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/prova_emi.d" -MT"src/prova_emi.o" -o "src/prova_emi.o" "../src/prova_emi.c"
+../src/prova_emi.c: In function 'main':
+../src/prova_emi.c:18:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO0_DATA = 0x40000000; //indirizzo output led
+            ^
+../src/prova_emi.c:19:11: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+           ^
+../src/prova_emi.c:21:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+            ^
+../src/prova_emi.c:22:11: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO1_TRI =  0x40010004; //indirizzo mux
+           ^
+'Finished building: ../src/prova_emi.c'
+' '
+'Building target: prova_emi.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../prova_emi_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "prova_emi.elf"  ./src/platform.o ./src/prova_emi.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: prova_emi.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size prova_emi.elf  |tee "prova_emi.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2980	    320	   3108	   6408	   1908	prova_emi.elf
+'Finished building: prova_emi.elf.size'
+' '
+16:50:09 **** Incremental Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+make: Nothing to be done for 'all'.
+17:09:09 **** Auto Build of configuration Debug for project Interrupt_definitivo ****
+make all 
+make: Nothing to be done for 'all'.
+17:11:12 **** Build of project prova_bsp ****
+make -k all 
+"Running Make include in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make include in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s include  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Running Make libs in microblaze_0/libsrc/bram_v4_3/src"
+make -C microblaze_0/libsrc/bram_v4_3/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling bram"
+mb-ar: creating ../../../lib/libxil.a
+"Running Make libs in microblaze_0/libsrc/cpu_v2_9/src"
+make -C microblaze_0/libsrc/cpu_v2_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling cpu"
+"Running Make libs in microblaze_0/libsrc/gpio_v4_4/src"
+make -C microblaze_0/libsrc/gpio_v4_4/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling gpio"
+"Running Make libs in microblaze_0/libsrc/intc_v3_9/src"
+make -C microblaze_0/libsrc/intc_v3_9/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling intc"
+"Running Make libs in microblaze_0/libsrc/standalone_v7_0/src"
+make -C microblaze_0/libsrc/standalone_v7_0/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling standalone";
+microblaze_sleep.c:77:9: note: #pragma message: For the sleep routines, assembly instructions are used
+ #pragma message ("For the sleep routines, assembly instructions are used")
+         ^~~~~~~
+"Running Make libs in microblaze_0/libsrc/uartlite_v3_2/src"
+make -C microblaze_0/libsrc/uartlite_v3_2/src -s libs  "SHELL=CMD" "COMPILER=mb-gcc" "ARCHIVER=mb-ar" "COMPILER_FLAGS=  -O2 -c -mcpu=v11.0 -mlittle-endian -mxl-soft-mul" "EXTRA_COMPILER_FLAGS=-ffunction-sections -fdata-sections -Wall -Wextra"
+"Compiling uartlite"
+'Finished building libraries'
+17:11:19 **** Build of configuration Debug for project prova ****
+make all 
+'Building file: ../src/helloworld.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -I../../prova_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+'Finished building: ../src/helloworld.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../prova_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: prova.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../prova_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "prova.elf"  ./src/helloworld.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: prova.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size prova.elf  |tee "prova.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   3124	    320	   3108	   6552	   1998	prova.elf
+'Finished building: prova.elf.size'
+' '
+17:12:30 **** Auto Build of configuration Debug for project prova ****
+make all 
+'Building file: ../src/helloworld.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -I../../prova_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+../src/helloworld.c: In function 'main':
+../src/helloworld.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo OUTPUT led
+             ^
+../src/helloworld.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI  = 0x40000004; //indirizzo mux
+             ^
+../src/helloworld.c:22:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+              ^
+../src/helloworld.c:23:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI   = 0x40010004; //indirizzo mux
+              ^
+../src/helloworld.c:24:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+              ^
+../src/helloworld.c:25:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+              ^
+../src/helloworld.c:32:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+             ^
+../src/helloworld.c:33:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004; //indirizzo mux
+            ^
+../src/helloworld.c:34:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+             ^
+../src/helloworld.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+             ^
+../src/helloworld.c:40:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008; //indirizzo interrupt enable register
+          ^
+../src/helloworld.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C; //indirizzo master enable register
+          ^
+../src/helloworld.c:28:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/helloworld.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/helloworld.c: In function 'myISR':
+../src/helloworld.c:80:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR  = 0x40020120;
+             ^
+../src/helloworld.c:81:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/helloworld.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR  = 0x40010120;
+             ^
+../src/helloworld.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/helloworld.c:84:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/helloworld.c:85:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR    = 0x4120000c;
+             ^
+../src/helloworld.c:86:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR    = 0x41200000;
+             ^
+'Finished building: ../src/helloworld.c'
+' '
+'Building target: prova.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../prova_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "prova.elf"  ./src/helloworld.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: prova.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size prova.elf  |tee "prova.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2476	    260	   3112	   5848	   16d8	prova.elf
+'Finished building: prova.elf.size'
+' '
+17:15:20 **** Incremental Build of configuration Debug for project prova ****
+make all 
+make: Nothing to be done for 'all'.

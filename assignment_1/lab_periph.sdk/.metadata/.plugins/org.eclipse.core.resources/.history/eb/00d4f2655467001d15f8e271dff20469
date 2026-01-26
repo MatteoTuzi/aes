@@ -1,0 +1,52 @@
+
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "mb_interface.h"
+
+
+int main()
+{
+
+int *GPIO0_DATA;
+int *GPIO0_TRI;
+int *GPIO1_TRI;
+int *GPIO1_DATA;
+
+int input_GPIO1;
+
+GPIO0_DATA = 0x40000000; //indirizzo output led
+GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+
+GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+GPIO1_TRI =  0x40010004; //indirizzo mux
+
+*GPIO0_TRI = 0x0; //GPIO_0 in output (led)
+
+*GPIO1_TRI = 0x1; //GPIO_1 in input (switch)
+
+/*
+while(1){
+input_GPIO1 = *GPIO1_DATA;
+*GPIO0_DATA = input_GPIO1;
+}
+*/
+int maschera_bit1 = 0x00000001;
+int maschera_bit2 = 0x00000002;
+int maschera_bit3 = 0x00000004;
+int bit1,bit2,bit3;
+
+while(1){
+input_GPIO1 = *GPIO1_DATA;
+bit1 = input_GPIO1 & maschera_bit1;
+bit2 = input_GPIO1 & maschera_bit2;
+bit3 = input_GPIO1 & maschera_bit3;
+
+*GPIO0_DATA = bit1 | !(bit2 & bit3);
+}
+
+
+}
+
+
+

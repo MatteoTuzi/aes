@@ -1,0 +1,20 @@
+
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "mb_interface.h"
+
+
+int main()
+{
+
+    init_platform();
+
+    print("Hello world! \n\r");
+
+    cleanup_platform();
+    return 0;
+}
+
+
+

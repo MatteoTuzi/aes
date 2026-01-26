@@ -1,0 +1,52 @@
+
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "mb_interface.h"
+
+
+int main()
+{
+
+	int *GPIO0_DATA;
+	int *GPIO0_TRI;
+	GPIO0_DATA = 0x40000000; //indirizzo output led
+	GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+
+	int *GPIO1_TRI;
+	int *GPIO1_DATA;
+	GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+	GPIO1_TRI =  0x40010004; //indirizzo mux
+
+	int *GPIO2_DATA;
+	int *GPIO2_TRI;
+	GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+	GPIO2_TRI =  0x40020004; //indirizzo mux
+
+	int input_GPIO1,input_GPIO2;  //variabili su cui salvo i valori degli input per capire se ci sia stata una variazione
+	input_GPIO1 = *GPIO1_DATA;
+	input_GPIO2 = *GPIO2_DATA;
+
+
+	*GPIO0_TRI = 0x0; //GPIO_0 in output (led)
+	*GPIO1_TRI = 0x1; //GPIO_1 in input (switch)
+	*GPIO2_TRI = 0x1; //GPIO_2 in input (button)
+
+	//aggiorno i valori dei led con l'ultima variazione che c'è stata nelle GPIO
+	while(1){
+		if(input_GPIO1 != *GPIO1_DATA){	//verifico che lo stato dello switch non sia cambiato
+			*GPIO0_DATA  = *GPIO1_DATA; //aggiorno i led con lo stato degli switch
+			input_GPIO1 = *GPIO1_DATA;  //aggiorno con l'ultimo valore assunto dagli switch
+		}
+		if(input_GPIO2 != *GPIO2_DATA){ //verifico che lo stato del bottone non sia cambiato
+			*GPIO0_DATA   = *GPIO2_DATA; 	 //aggiorno i led con lo stato del bottone
+			input_GPIO2 = *GPIO2_DATA;		 //aggiorno con l'ultimo valore assunto dal bottone
+		}
+
+	}
+
+
+}
+
+
+

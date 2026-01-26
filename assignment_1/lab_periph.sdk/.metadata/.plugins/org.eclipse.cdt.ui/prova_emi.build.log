@@ -1,0 +1,39 @@
+21:57:21 **** Build of configuration Debug for project prova_emi ****
+make all 
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../prova_emi_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building file: ../src/prova_emi.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/prova_emi.o" -I../../prova_emi_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/prova_emi.d" -MT"src/prova_emi.o" -o "src/prova_emi.o" "../src/prova_emi.c"
+../src/prova_emi.c: In function 'main':
+../src/prova_emi.c:18:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO0_DATA = 0x40000000; //indirizzo output led
+            ^
+../src/prova_emi.c:19:11: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+           ^
+../src/prova_emi.c:21:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO1_DATA = 0x40010000; //indirizzo dati input switch
+            ^
+../src/prova_emi.c:22:11: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+ GPIO1_TRI =  0x40010004; //indirizzo mux
+           ^
+'Finished building: ../src/prova_emi.c'
+' '
+'Building target: prova_emi.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../prova_emi_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "prova_emi.elf"  ./src/platform.o ./src/prova_emi.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: prova_emi.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size prova_emi.elf  |tee "prova_emi.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2980	    320	   3108	   6408	   1908	prova_emi.elf
+'Finished building: prova_emi.elf.size'
+' '
+
+21:57:21 Build Finished (took 923ms)
+

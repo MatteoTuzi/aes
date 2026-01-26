@@ -1,0 +1,126 @@
+
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "mb_interface.h"
+
+#define LED_BASEADDR  0x40000000
+#define SWI_BASEADDR  0x40010000
+#define BUT_BASEADDR  0x40020000
+
+#define INTC_BASEADDR 0x41200000
+
+
+#define SWI_DATA     (SWI_BASEADDR + 0x0)
+
+#define LED_DATA     (LED_BASEADDR + 0x0)
+#define LED_TRISTATE (LED_BASEADDR + 0x4)
+
+//Global interrupt enable register
+#define SWI_GIER (SWI_BASEADDR + 0x11C)
+#define BUT_GIER (BUT_BASEADDR + 0x11C)
+
+#define SWI_IPIER (SWI_BASEADDR + 0x128)
+#define BUT_IPIER (BUT_BASEADDR + 0x128)
+
+#define SWI_IPISR (SWI_BASEADDR + 0x120)
+#define BUT_IPISR (BUT_BASEADDR + 0x120)
+
+#define INTC_ISR (INTC_BASEADDR + 0x00)
+#define INTC_IER (INTC_BASEADDR + 0x08)
+#define INTC_IAR (INTC_BASEADDR + 0x0C)
+#define INTC_MER (INTC_BASEADDR + 0x1C)
+
+// Position of the interrupt bit for each GPIO
+#define SWI_INT 0
+#define BUT_INT 1
+
+void gestisci_interrupt (void) __attribute__ ((interrupt_handler)); //the interrupt handler, it can have any name
+void swi_func();
+void but_func();
+
+int main()
+{
+
+    init_platform();
+
+    microblaze_enable_interrupts();
+
+
+    //Enabling interrupts in the INTC
+    *((volatile int *)(INTC_IER))=0b11;
+    *((volatile int *)(INTC_MER))=0b11;
+
+    //Enabling interrupts in the switches GPIO
+    *((volatile int *)(SWI_IPIER))=1;
+    *((volatile int *)(SWI_GIER)) = 0x1 << 31; // set the MSB to 1. see the INTC manual
+
+
+    //Enabling the interrupts int the Button GPIO. Just the btn1 is controlled by the GPIO
+    *((volatile int *)(BUT_IPIER))=1;
+    *((volatile int *)(BUT_GIER))=0x1 << 31;
+
+
+    print("Test working \n\r");
+
+    while(1){;} // the CPU waits
+
+
+
+    cleanup_platform();
+    return 0;
+}
+
+
+
+
+void gestisci_interrupt (void){
+
+    int isr_value;
+
+    isr_value = *((volatile int *)(INTC_ISR));
+
+
+
+    // bit shift >> + bit masking & to get which peripheral raised the interrupt.
+
+    // WHEN THE SWITCHES CHANGE STATUS
+     if (((isr_value>>SWI_INT)&0x1) == 1){
+
+    	// interrupt acknowledge in the peripheral
+    	*((volatile int *)(SWI_IPISR)) = 1;
+
+    	//first ack the interrupt in the peripheral then in the INTC. see the INTC manual
+    	*((volatile int *)(INTC_IAR)) = 1<<SWI_INT;
+
+
+    	swi_func();
+    }
+
+
+
+
+    // WHEN THE BUTTON CHANGES STATUS
+    if (((isr_value>>BUT_INT)&0x1) == 1){
+
+    	//  interrupt acknowledge in the peripheral
+    	*((volatile int *)(BUT_IPISR)) = 1;
+
+    	//first ack the interrupt in the peripheral then in the INTC. see the INTC manual
+    	*((volatile int *)(INTC_IAR)) = 1<<BUT_INT;
+
+    	but_func();
+    }
+}
+
+void swi_func(){
+	print("Switch interrupt!\n\r");
+
+	*((volatile int *)LED_DATA)= *((volatile int *)SWI_DATA);
+}
+void but_func(){
+	print("Button interrupt!\n\r");
+
+	// the button turns off all the leds
+	*((volatile int *)LED_DATA)= 0;
+}

@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "mb_interface.h"
+
+int main()
+{
+	int *GPIO0_DATA;
+	GPIO0_DATA = 0x40000000; //indirizzo output led
+
+
+	//indirizzi gpio button
+	int *GPIO2_DATA;
+	int *GPIO2_TRI;
+	int *GPIO2_GIER;
+	int *GPIO2_IPIER;
+	GPIO2_DATA = 0x40020000;
+	GPIO2_TRI =  0x40020004;
+	GPIO2_GIER = 0x4002011c;
+	GPIO2_IPIER= 0x40020128;
+
+	//setto GPIO2 button
+	*GPIO2_TRI = 0x1; //GPIO_1 in input (switch)
+
+
+
+	while(1){
+		if(*GPIO2_DATA==1)
+			*GPIO0_DATA = 0xF;
+		else
+			*GPIO0_DATA = 0;
+	}
+}
+
+
+
+
+
+
+
+

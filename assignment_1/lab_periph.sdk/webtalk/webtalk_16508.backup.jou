@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# 
+# Start of session at: Wed Nov  9 11:02:11 2022
+# Process ID: 16508
+# Current directory: C:/Users/User/Desktop/ingegneria/5secondoannomagistrale/1_Advance_embedded_system/peripherals_lab_sw_blank-main/lab_periph.sdk/webtalk
+# Command line: wbtcv.exe -mode batch -source sdk_webtalk.tcl
+# Log file: C:/Users/User/Desktop/ingegneria/5secondoannomagistrale/1_Advance_embedded_system/peripherals_lab_sw_blank-main/lab_periph.sdk/webtalk/webtalk.log
+# Journal file: C:/Users/User/Desktop/ingegneria/5secondoannomagistrale/1_Advance_embedded_system/peripherals_lab_sw_blank-main/lab_periph.sdk/webtalk\webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl

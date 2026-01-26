@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "mb_interface.h"
+
+void myISR (void) __attribute__ ((interrupt_handler));
+
+
+int main()
+{
+	//GPIO led
+	int *GPIO0_DATA;
+	int *GPIO0_TRI;
+	GPIO0_DATA = (int) 0x40000000; //indirizzo OUTPUT led
+	GPIO0_TRI  = 0x40000004; //indirizzo mux
+
+	//GPIO switch
+	int *GPIO1_TRI;
+	int *GPIO1_DATA;
+	int *GPIO1_GIER;
+	int *GPIO1_IPIER;
+	int data_in;
+	GPIO1_DATA  = 0x40010000; //indirizzo dati INPUT switch
+	GPIO1_TRI   = 0x40010004; //indirizzo mux
+	GPIO1_GIER  = 0x4001011c; //indirizzo global interrupt GPIO1
+	GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register GPIO1
+
+	//GPIO2 button
+	int *GPIO2_DATA;
+	int *GPIO2_TRI;
+	int *GPIO2_GIER;
+	int *GPIO2_IPIER;
+	GPIO2_DATA = 0x40020000; //indirizzo dati INPUT button
+	GPIO2_TRI =  0x40020004; //indirizzo mux
+	GPIO2_GIER = 0x4002011c; //indirizzo global interrupt GPIO2
+	GPIO2_IPIER= 0x40020128; //indirizzo IP interrupt enable register GPIO2
+
+	//interrupt controller
+	int *ctr_IER;
+	int *ctr_MER;
+	ctr_IER = 0x41200008; //indirizzo interrupt enable register
+	ctr_MER = 0x4120001C; //indirizzo master enable register
+
+
+	//GPIO0 OUTPUT LED
+	*GPIO0_TRI =  0x0;   //GPIO_0 in output (led)
+	*GPIO0_DATA = 0xF;  //all'accensione tutti i led sono accesi
+
+	//GPIO1 INPUT/INTERRUPT switch
+	*GPIO1_TRI =   0x1;            //GPIO_1 in input (switch)
+	*GPIO1_GIER =  0x80000000;    //abilito l'interrupt sulla GPIO_1
+	*GPIO1_IPIER = 0x1;           //abilito l'interrupt sul canale 1
+
+	//GPIO2 INPUT/INTERRUPT button
+	*GPIO2_TRI =   0x1;          //GPIO_2 in input (button)
+	*GPIO2_GIER =  0x80000000;   //abilito l'interrupt sulla GPIO_2
+	*GPIO2_IPIER = 0x1;        	 //abilito l'interrupt sul canale 1
+
+	//interrupt controller
+	*ctr_IER = 0x3; 			//attivo l'interrupt sull'interrupt controller per la GPIO1 e GPIO2
+	*ctr_MER = 0x3; 			//attivo HW interrupt e il segnale IRQ
+
+	microblaze_enable_interrupts ();
+
+	while(1){
+		;
+	}
+}
+
+
+void myISR (void){
+	long int i;
+	int *ctr_ISR;	 	//controller interrupt status register
+	int *ctr_IAR;	 	//controller interrupt acknowledge register
+	int *GPIO0_DATA;
+	int *GPIO1_ISR; 	//GPIO1 interrupt status register
+	int *GPIO1_DATA;
+	int *GPIO2_DATA;
+	int *GPIO2_ISR; 	//GPIO2 interrupt status register
+
+	GPIO2_ISR  = 0x40020120;
+	GPIO2_DATA = 0x40020000;
+	GPIO1_ISR  = 0x40010120;
+	GPIO1_DATA = 0x40010000;
+	GPIO0_DATA = 0x40000000;
+	ctr_IAR    = 0x4120000c;
+	ctr_ISR    = 0x41200000;
+
+
+	int maschera_GPIO1 = 0x00000001;
+	int maschera_GPIO2 = 0x00000002;
+	int check_GPIO1, check_GPIO2;              //variabili per determinare se sia arrivato un interrupt dalla GPIO1 o GPIO2
+
+	check_GPIO1 = *ctr_ISR & maschera_GPIO1;  //check_GPIO1 = 1 se il bit 1 dell'ISR = 1 (se è arrivato un interrupt dalla GPIO1)
+
+	if(check_GPIO1 != 0){
+		*GPIO0_DATA = *GPIO1_DATA;    //LED accesi con la posizione degli switch al momento dell'interrupt
+		*GPIO1_ISR  = 0x1;			  //resetto l'interrupt nella GPIO1
+		*ctr_IAR   |= 0x1;			  //resetto controller
+
+		for(i=0;i<20000000;i++);      //ciclo for per verificare l'overlapping dei due interrupt
+	}
+
+	check_GPIO2 = *ctr_ISR & maschera_GPIO2;  //check_GPIO2 = 1 se il bit 2 dell'ISR = 1 (se è arrivato un interrupt dalla GPIO2)
+
+	if(check_GPIO2 != 0){
+		*GPIO0_DATA = *GPIO2_DATA;    //se premo --> accendo solo il LED 1 ; se rilascio--> spengo tutti i LED
+		*GPIO2_ISR  = 0x1;			  //resetto l'interrupt nella GPIO2
+		*ctr_IAR   |= 0x2;	          //resetto l'interrupt nel controller
+
+		for(i=0;i<20000000;i++);	  //ciclo for per verificare l'overlapping dei due interrupt
+	}
+
+}

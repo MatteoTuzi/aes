@@ -1,0 +1,91 @@
+21:56:53 **** Build of configuration Debug for project Gestione_bottone_switch ****
+make all 
+'Building file: ../src/butt_switch_interrupt.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/butt_switch_interrupt.o" -I../../Gestione_bottone_switch_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/butt_switch_interrupt.d" -MT"src/butt_switch_interrupt.o" -o "src/butt_switch_interrupt.o" "../src/butt_switch_interrupt.c"
+../src/butt_switch_interrupt.c: In function 'main':
+../src/butt_switch_interrupt.c:14:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/butt_switch_interrupt.c:15:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/butt_switch_interrupt.c:23:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA =  0x40010000; //indirizzo dati input switch
+             ^
+../src/butt_switch_interrupt.c:24:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI  =  0x40010004; //indirizzo mux
+             ^
+../src/butt_switch_interrupt.c:25:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER =  0x4001011c; //indirizzo global interrupt
+             ^
+../src/butt_switch_interrupt.c:26:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register
+              ^
+../src/butt_switch_interrupt.c:33:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/butt_switch_interrupt.c:34:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004;
+            ^
+../src/butt_switch_interrupt.c:35:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c;
+             ^
+../src/butt_switch_interrupt.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40020128;
+             ^
+../src/butt_switch_interrupt.c:41:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008;
+          ^
+../src/butt_switch_interrupt.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C;
+          ^
+../src/butt_switch_interrupt.c:29:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/butt_switch_interrupt.c:22:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/butt_switch_interrupt.c:19:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/butt_switch_interrupt.c: In function 'myISR':
+../src/butt_switch_interrupt.c:80:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_ISR =  0x40020120;
+            ^
+../src/butt_switch_interrupt.c:81:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR =  0x40010120;
+            ^
+../src/butt_switch_interrupt.c:82:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA = 0x40010000;
+             ^
+../src/butt_switch_interrupt.c:83:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/butt_switch_interrupt.c:84:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR =    0x4120000c;
+          ^
+../src/butt_switch_interrupt.c:85:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR =    0x41200000;
+          ^
+'Finished building: ../src/butt_switch_interrupt.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../Gestione_bottone_switch_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: Gestione_bottone_switch.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../Gestione_bottone_switch_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "Gestione_bottone_switch.elf"  ./src/butt_switch_interrupt.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: Gestione_bottone_switch.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size Gestione_bottone_switch.elf  |tee "Gestione_bottone_switch.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2320	    260	   3108	   5688	   1638	Gestione_bottone_switch.elf
+'Finished building: Gestione_bottone_switch.elf.size'
+' '
+
+21:56:54 Build Finished (took 1s.186ms)
+

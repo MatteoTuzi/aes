@@ -1,0 +1,94 @@
+21:57:06 **** Build of configuration Debug for project gestione_interrupt ****
+make all 
+'Building file: ../src/gestione_interrupt.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/gestione_interrupt.o" -I../../gestione_interrupt_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/gestione_interrupt.d" -MT"src/gestione_interrupt.o" -o "src/gestione_interrupt.o" "../src/gestione_interrupt.c"
+../src/gestione_interrupt.c: In function 'main':
+../src/gestione_interrupt.c:15:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000; //indirizzo output led
+             ^
+../src/gestione_interrupt.c:16:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_TRI =  0x40000004; //indirizzo mux gpio led
+            ^
+../src/gestione_interrupt.c:24:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_DATA =  0x40010000; //indirizzo dati input switch
+             ^
+../src/gestione_interrupt.c:25:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_TRI  =  0x40010004; //indirizzo mux
+             ^
+../src/gestione_interrupt.c:26:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_GIER =  0x4001011c; //indirizzo global interrupt
+             ^
+../src/gestione_interrupt.c:27:14: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_IPIER = 0x40010128; //indirizzo IP interrupt enable register
+              ^
+../src/gestione_interrupt.c:34:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_DATA = 0x40020000;
+             ^
+../src/gestione_interrupt.c:35:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_TRI =  0x40020004;
+            ^
+../src/gestione_interrupt.c:36:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_GIER = 0x4002011c;
+             ^
+../src/gestione_interrupt.c:37:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO2_IPIER= 0x40000128;
+             ^
+../src/gestione_interrupt.c:42:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IER = 0x41200008;
+          ^
+../src/gestione_interrupt.c:43:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_MER = 0x4120001C;
+          ^
+../src/gestione_interrupt.c:33:7: warning: variable 'GPIO2_IPIER' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_IPIER;
+       ^~~~~~~~~~~
+../src/gestione_interrupt.c:32:7: warning: variable 'GPIO2_GIER' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_GIER;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c:31:7: warning: variable 'GPIO2_TRI' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_TRI;
+       ^~~~~~~~~
+../src/gestione_interrupt.c:30:7: warning: variable 'GPIO2_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO2_DATA;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c:23:6: warning: unused variable 'data_in' [-Wunused-variable]
+  int data_in;
+      ^~~~~~~
+../src/gestione_interrupt.c:20:7: warning: variable 'GPIO1_DATA' set but not used [-Wunused-but-set-variable]
+  int *GPIO1_DATA;
+       ^~~~~~~~~~
+../src/gestione_interrupt.c: In function 'myISR':
+../src/gestione_interrupt.c:72:12: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO1_ISR =  0x40010120;
+            ^
+../src/gestione_interrupt.c:73:13: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  GPIO0_DATA = 0x40000000;
+             ^
+../src/gestione_interrupt.c:74:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_IAR =    0x4120000c;
+          ^
+../src/gestione_interrupt.c:75:10: warning: assignment to 'int *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+  ctr_ISR =    0x41200000;
+          ^
+'Finished building: ../src/gestione_interrupt.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../gestione_interrupt_bsp/microblaze_0/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: gestione_interrupt.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../gestione_interrupt_bsp/microblaze_0/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "gestione_interrupt.elf"  ./src/gestione_interrupt.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: gestione_interrupt.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size gestione_interrupt.elf  |tee "gestione_interrupt.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+   2396	    260	   3120	   5776	   1690	gestione_interrupt.elf
+'Finished building: gestione_interrupt.elf.size'
+' '
+
+21:57:07 Build Finished (took 926ms)
+

@@ -1,0 +1,168 @@
+/*******************************************************************************
+ *  UART Microserver – Histogram Stretching (arbitrary-size PPM)
+ *  University of Cagliari – Advanced Embedded Systems (AES)
+ *
+ *  UART microserver on Zybo Z7. Receives a P6 PPM of arbitrary size over UART,
+ *  applies linear histogram stretching, sends the processed image back.
+ *
+ *  Histogram stretching:
+ *    I_min = min intensity, I_max = max intensity
+ *    scale = 255.0 / (I_max - I_min)
+ *    p_out = (p_in - I_min) * scale
+ *
+ *  PPM: P6, arbitrary width×height, maxval 255. Header: 3 lines
+ *    "P6", "<width> <height>", "255"
+ *
+ *  Hardware: Zybo Z7 (ARM Cortex-A9). UART: PS UART1 @ 115200, 8N1.
+ *  Tools: Xilinx SDK / Vitis, RealTerm or gtkterm.
+ ******************************************************************************/
+
+#include "platform.h"
+#include "xil_printf.h"
+#include "xuartps.h"
+#include "xparameters.h"
+#include <stdlib.h>
+
+#define UART_BASE       XPAR_PS7_UART_1_BASEADDR
+#define LINE_MAX        32
+#define IMG_MAX_DIM     512   /* max width/height to limit malloc size */
+
+static int read_line(u32 base, char *buf, int maxlen)
+{
+	int i = 0;
+	char c;
+	while (i < maxlen - 1) {
+		c = (char)XUartPs_RecvByte(base);
+		buf[i++] = c;
+		if (c == '\n')
+			break;
+	}
+	buf[i] = '\0';
+	return i;
+}
+
+static int to_int(const char *s)
+{
+	int n = 0;
+	int i = 0;
+	while (s[i] >= '0' && s[i] <= '9') {
+		n = n * 10 + (s[i] - '0');
+		i++;
+	}
+	return n;
+}
+
+static void apply_histogram_stretching(u8 *img, int n)
+{
+	u8 I_min = 255, I_max = 0;
+	int i;
+
+	for (i = 0; i < n; i++) {
+		if (img[i] < I_min) I_min = img[i];
+		if (img[i] > I_max) I_max = img[i];
+	}
+	if (I_max <= I_min)
+		return;
+
+	{
+		float scale = 255.0f / (float)(I_max - I_min);
+		for (i = 0; i < n; i++) {
+			float p = (float)(img[i] - I_min) * scale;
+			if (p < 0.0f) p = 0.0f;
+			if (p > 255.0f) p = 255.0f;
+			img[i] = (u8)p;
+		}
+	}
+}
+
+static void parse_width_height(const char *line2, int *width, int *height)
+{
+	int i = 0;
+	*width = 0;
+	*height = 0;
+	while (line2[i] >= '0' && line2[i] <= '9')
+		*width = *width * 10 + (line2[i++] - '0');
+	i++;  /* skip space */
+	while (line2[i] >= '0' && line2[i] <= '9')
+		*height = *height * 10 + (line2[i++] - '0');
+}
+
+static int run_histogram_server(u32 base)
+{
+	char line1[LINE_MAX], line2[LINE_MAX], line3[LINE_MAX];
+	int width, height, maxval, num_pixels;
+	u8 *image;
+	int i;
+
+	read_line(base, line1, LINE_MAX);
+	read_line(base, line2, LINE_MAX);
+	read_line(base, line3, LINE_MAX);
+
+	parse_width_height(line2, &width, &height);
+	maxval = to_int(line3);
+	if (maxval != 255 || width <= 0 || height <= 0 ||
+	    width > IMG_MAX_DIM || height > IMG_MAX_DIM)
+		return -1;
+
+	num_pixels = width * height * 3;
+	image = (u8 *)malloc((size_t)num_pixels);
+	if (!image)
+		return -1;
+
+	for (i = 0; i < num_pixels; i++)
+		image[i] = XUartPs_RecvByte(base);
+
+	apply_histogram_stretching(image, num_pixels);
+
+	for (i = 0; line1[i] != '\0'; i++)
+		XUartPs_SendByte(base, (u8)line1[i]);
+	for (i = 0; line2[i] != '\0'; i++)
+		XUartPs_SendByte(base, (u8)line2[i]);
+	for (i = 0; line3[i] != '\0'; i++)
+		XUartPs_SendByte(base, (u8)line3[i]);
+
+	for (i = 0; i < num_pixels; i++)
+		XUartPs_SendByte(base, image[i]);
+
+	free(image);
+	return 0;
+}
+
+static int setup_uart(XUartPs *uart, u32 *base)
+{
+	XUartPs_Config *cfg;
+
+	cfg = XUartPs_LookupConfig(XPAR_PS7_UART_1_DEVICE_ID);
+	if (!cfg)
+		return -1;
+	if (XUartPs_CfgInitialize(uart, cfg, cfg->BaseAddress) != XST_SUCCESS)
+		return -1;
+	if (XUartPs_SetBaudRate(uart, (u32)115200) != (s32)XST_SUCCESS)
+		return -1;
+	*base = cfg->BaseAddress;
+	return 0;
+}
+
+int main(void)
+{
+	XUartPs uart;
+	u32 uart_base;
+
+	init_platform();
+
+	if (setup_uart(&uart, &uart_base) != 0) {
+		xil_printf("UART init failed.\r\n");
+		cleanup_platform();
+		return -1;
+	}
+
+	if (run_histogram_server(uart_base) != 0) {
+		xil_printf("Histogram error (bad header or malloc).\r\n");
+		cleanup_platform();
+		return -1;
+	}
+
+	xil_printf("Histogram done.\r\n");
+	cleanup_platform();
+	return 0;
+}

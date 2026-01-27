@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xuartps.h"
+
+
+int main()
+{
+    init_platform();
+    XUartPs Uart_1_PS;
+    u16 DeviceId_1= XPAR_PS7_UART_1_DEVICE_ID;
+    int Status_1;
+    XUartPs_Config *Config_1;
+    Config_1 = XUartPs_LookupConfig(DeviceId_1);
+    if (NULL == Config_1) {
+      return XST_FAILURE;
+    }
+    Status_1 = XUartPs_CfgInitialize(&Uart_1_PS, Config_1, Config_1->BaseAddress); //inizializzo la UART
+    if (Status_1 != XST_SUCCESS) {
+      return XST_FAILURE;
+    }
+    u32 BaudRate = (u32)115200;
+    Status_1 = XUartPs_SetBaudRate(&Uart_1_PS, BaudRate); //setto il BaudRate = 115200
+    if (Status_1 != (s32)XST_SUCCESS) {
+      return XST_FAILURE;
+    }
+
+    print("Hello World!");
+    u8 temp;
+    while(1){
+    	temp=XUartPs_RecvByte(Config_1->BaseAddress);
+    	XUartPs_SendByte(Config_1->BaseAddresstemp, temp);
+    }
+
+    cleanup_platform();
+    return 0;
+}
+

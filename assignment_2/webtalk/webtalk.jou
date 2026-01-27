@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# 
+# Start of session at: Tue Jan 27 22:12:14 2026
+# Process ID: 50468
+# Current directory: C:/Users/super/OneDrive/Desktop/Universita/aes/assignment_2/webtalk
+# Command line: wbtcv.exe -mode batch -source sdk_webtalk.tcl
+# Log file: C:/Users/super/OneDrive/Desktop/Universita/aes/assignment_2/webtalk/webtalk.log
+# Journal file: C:/Users/super/OneDrive/Desktop/Universita/aes/assignment_2/webtalk\webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl

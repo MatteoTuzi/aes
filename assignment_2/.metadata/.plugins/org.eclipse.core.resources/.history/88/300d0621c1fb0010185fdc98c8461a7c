@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xuartps.h"
+#include "stdlib.h"
+#include "math.h"
+
+#define UART_BASE XPAR_PS7_UART_1_BASEADDR
+
+// Legge una riga terminata da \n (indispensabile per l'header PPM)
+int read_line(char *buf, int maxlen) {
+    int i = 0;
+    char c;
+    while (i < maxlen - 1) {
+        c = XUartPs_RecvByte(UART_BASE);
+        buf[i++] = c;
+        if (c == '\n') break;
+    }
+    buf[i] = 0;
+    return i;
+}
+
+void apply_histogram_equalization(u8 *img, int n) {
+    int hist[256] = {0};
+    int cdf[256] = {0};
+    u8 map[256] = {0};
+
+    // Step 2: Calcolo dell'Istogramma
+    for (int i = 0; i < n; i++) {
+        hist[img[i]]++;
+    }
+
+    // Step 3: Calcolo della Cumulative Distribution Function (CDF)
+    cdf[0] = hist[0];
+    for (int i = 1; i < 256; i++) {
+        cdf[i] = cdf[i - 1] + hist[i];
+    }
+
+    // Step 4: Normalizzazione (Mapping)
+    int cdf_min = 0;
+    for (int i = 0; i < 256; i++) {
+        if (cdf[i] != 0) {
+            cdf_min = cdf[i];
+            break;
+        }
+    }
+
+    if (n - cdf_min == 0) return; // Evita divisione per zero
+
+    for (int i = 0; i < 256; i++) {
+        float val = (float)(cdf[i] - cdf_min) / (float)(n - cdf_min) * 255.0f;
+        map[i] = (u8)(val + 0.5f); // Arrotondamento (round)
+    }
+
+    // Step 5: Applicazione del mapping ai pixel
+    for (int i = 0; i < n; i++) {
+        img[i] = map[img[i]];
+    }
+}
+
+int main() {
+    init_platform();
+
+    // Inizializzazione UART1 (Zybo Z7)
+    XUartPs Uart_PS;
+    XUartPs_Config *Config = XUartPs_LookupConfig(XPAR_PS7_UART_1_DEVICE_ID);
+    if (Config == NULL) return XST_FAILURE;
+    XUartPs_CfgInitialize(&Uart_PS, Config, Config->BaseAddress);
+    XUartPs_SetBaudRate(&Uart_PS, 115200);
+
+    char line1[32], line2[32], line3[32];
+    read_line(line1, 32);
+    read_line(line2, 32);
+    read_line(line3, 32);
+
+    // Parsing larghezza e altezza
+    int width = 0, height = 0, i = 0;
+    while (line2[i] >= '0' && line2[i] <= '9') {
+        width = width * 10 + (line2[i++] - '0');
+    }
+    i++; // Salta lo spazio
+    while (line2[i] >= '0' && line2[i] <= '9') {
+        height = height * 10 + (line2[i++] - '0');
+    }
+
+    int num_pixels = width * height * 3;
+    u8 *image = malloc(num_pixels);
+
+    if (image != NULL) {
+        // Ricezione binaria dei dati RGB
+        for (int j = 0; j < num_pixels; j++)
+            image[j] = XUartPs_RecvByte(UART_BASE);
+
+        // Algoritmo di Equalizzazione
+        apply_histogram_equalization(image, num_pixels);
+
+        // Invio Header originale al PC
+        for (int j = 0; line1[j] != 0; j++) XUartPs_SendByte(UART_BASE, line1[j]);
+        for (int j = 0; line2[j] != 0; j++) XUartPs_SendByte(UART_BASE, line2[j]);
+        for (int j = 0; line3[j] != 0; j++) XUartPs_SendByte(UART_BASE, line3[j]);
+
+        // Invio Pixel elaborati
+        for (int j = 0; j < num_pixels; j++)
+            XUartPs_SendByte(UART_BASE, image[j]);
+
+        free(image);
+    }
+
+    cleanup_platform();
+    return 0;
+}

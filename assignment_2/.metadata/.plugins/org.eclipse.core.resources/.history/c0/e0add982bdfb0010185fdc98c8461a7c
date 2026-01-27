@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xuartps.h"
+#include "stdlib.h"
+
+#define UART_BASE XPAR_PS7_UART_1_BASEADDR
+
+// Legge una riga terminata da \n
+int read_line(char *buf, int maxlen) {
+    int i = 0;
+    char c;
+    while (i < maxlen - 1) {
+        c = XUartPs_RecvByte(UART_BASE);
+        buf[i++] = c;
+        if (c == '\n') break;
+    }
+    buf[i] = 0;
+    return i;
+}
+
+// Converte stringa in intero
+int to_int(char *s) {
+    int n = 0, i = 0;
+    while (s[i] >= '0' && s[i] <= '9') {
+        n = n * 10 + (s[i] - '0');
+        i++;
+    }
+    return n;
+}
+
+void apply_histogram_stretching(u8 *img, int n) {
+    u8 I_min = 255, I_max = 0;
+    for (int i = 0; i < n; i++) {
+        if (img[i] < I_min) I_min = img[i];
+        if (img[i] > I_max) I_max = img[i];
+    }
+    if (I_max == I_min) return;
+
+    float scale = 255.0f / (float)(I_max - I_min);
+    for (int i = 0; i < n; i++) {
+        float p = (img[i] - I_min) * scale;
+        if (p < 0) p = 0;
+        if (p > 255) p = 255;
+        img[i] = (u8)p;
+    }
+}
+
+int main() {
+    init_platform();
+
+    // Inizializzazione UART (Indispensabile per la Zybo)
+    XUartPs uart;
+    XUartPs_Config *config = XUartPs_LookupConfig(XPAR_PS7_UART_1_DEVICE_ID);
+    XUartPs_CfgInitialize(&uart, config, config->BaseAddress);
+    XUartPs_SetBaudRate(&uart, 115200);
+
+    char line1[32], line2[32], line3[32];
+    read_line(line1, 32);
+    read_line(line2, 32);
+    read_line(line3, 32);
+
+    // Parsing larghezza e altezza
+    int width = 0, height = 0, i = 0;
+    while (line2[i] >= '0' && line2[i] <= '9') {
+        width = width * 10 + (line2[i++] - '0');
+    }
+    i++; // Salta lo spazio
+    while (line2[i] >= '0' && line2[i] <= '9') {
+        height = height * 10 + (line2[i++] - '0');
+    }
+
+    int num_pixels = width * height * 3;
+    u8 *image = malloc(num_pixels);
+
+    // Se la malloc fallisce, non possiamo continuare
+    if (image == NULL) {
+        cleanup_platform();
+        return -1;
+    }
+
+    // Ricezione
+    for (int j = 0; j < num_pixels; j++)
+        image[j] = XUartPs_RecvByte(UART_BASE);
+
+    apply_histogram_stretching(image, num_pixels);
+
+    // Invio Header
+    for (int j = 0; line1[j] != 0; j++) XUartPs_SendByte(UART_BASE, line1[j]);
+    for (int j = 0; line2[j] != 0; j++) XUartPs_SendByte(UART_BASE, line2[j]);
+    for (int j = 0; line3[j] != 0; j++) XUartPs_SendByte(UART_BASE, line3[j]);
+
+    // Invio Dati
+    for (int j = 0; j < num_pixels; j++)
+        XUartPs_SendByte(UART_BASE, image[j]);
+
+    free(image);
+    cleanup_platform();
+    return 0;
+}

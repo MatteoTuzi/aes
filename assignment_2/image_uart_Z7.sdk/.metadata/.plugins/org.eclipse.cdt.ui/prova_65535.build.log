@@ -1,0 +1,26 @@
+11:22:05 **** Build of configuration Debug for project prova_65535 ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/platform.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../prova_65535_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/platform.d" -MT"src/platform.o" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building file: ../src/prova_65535.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/prova_65535.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../prova_65535_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/prova_65535.d" -MT"src/prova_65535.o" -o "src/prova_65535.o" "../src/prova_65535.c"
+../src/prova_65535.c:75:5: error: conflicting types for 'leggi_header'
+ int leggi_header(int *array_passaggio, u8 *immagine_originale){
+     ^~~~~~~~~~~~
+../src/prova_65535.c:9:5: note: previous declaration of 'leggi_header' was here
+ int leggi_header(int *array_passaggio, u8 *point_imm_orig, u8 *point_imm_mod);
+     ^~~~~~~~~~~~
+../src/prova_65535.c: In function 'leggi_header':
+../src/prova_65535.c:108:10: warning: implicit declaration of function 'atoi' [-Wimplicit-function-declaration]
+  dim_x = atoi(buffer_dim_x);
+          ^~~~
+make: *** [src/subdir.mk:26: src/prova_65535.o] Error 1
+
+11:22:06 Build Finished (took 968ms)
+

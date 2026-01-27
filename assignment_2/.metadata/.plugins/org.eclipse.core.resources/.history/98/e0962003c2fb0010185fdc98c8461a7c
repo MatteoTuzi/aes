@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xuartps.h"
+#include "stdlib.h"
+
+// Usiamo l'indirizzo diretto come nel codice di Lello
+#define UART_BASE XPAR_PS7_UART_1_BASEADDR
+
+/***************************************************************
+ * read_line() - Identica al codice funzionante
+ ***************************************************************/
+int read_line(char *buf, int maxlen) {
+    int i = 0;
+    char c;
+    while (i < maxlen - 1) {
+        c = XUartPs_RecvByte(UART_BASE);
+        buf[i++] = c;
+        if (c == '\n') break;
+    }
+    buf[i] = 0;
+    return i;
+}
+
+/***************************************************************
+ * to_int() - Identica al codice funzionante
+ ***************************************************************/
+int to_int(char *s) {
+    int n = 0, i = 0;
+    while (s[i] >= '0' && s[i] <= '9') {
+        n = n * 10 + (s[i] - '0');
+        i++;
+    }
+    return n;
+}
+
+/***************************************************************
+ * apply_histogram_equalization() - Logica integrata
+ ***************************************************************/
+void apply_histogram_equalization(u8 *img, int n) {
+    int hist[256] = {0};
+    int cdf[256]  = {0};
+    u8  map[256];
+
+    // 1) Calcolo Istogramma
+    for (int i = 0; i < n; i++)
+        hist[img[i]]++;
+
+    // 2) Calcolo CDF
+    cdf[0] = hist[0];
+    for (int i = 1; i < 256; i++)
+        cdf[i] = cdf[i - 1] + hist[i];
+
+    // 3) Trova cdf_min
+    int cdf_min = 0;
+    for (int i = 0; i < 256; i++) {
+        if (cdf[i] != 0) {
+            cdf_min = cdf[i];
+            break;
+        }
+    }
+
+    if (cdf_min == n) return;
+
+    // 4) Build LUT (Mapping)
+    for (int i = 0; i < 256; i++) {
+        float norm = (float)(cdf[i] - cdf_min) / (float)(n - cdf_min);
+        int val = (int)(norm * 255.0f + 0.5f);
+
+        if (val < 0)   val = 0;
+        if (val > 255) val = 255;
+        map[i] = (u8)val;
+    }
+
+    // 5) Applica LUT
+    for (int i = 0; i < n; i++)
+        img[i] = map[img[i]];
+}
+
+int main() {
+    init_platform();
+
+    /***********************************************************
+     * Inizializzazione UART - IDENTICA A LELLO
+     **********************************************************/
+    XUartPs Uart_1_PS;
+    u16 DeviceId_1 = XPAR_PS7_UART_1_DEVICE_ID;
+    int Status_1;
+    XUartPs_Config *Config_1;
+
+    Config_1 = XUartPs_LookupConfig(DeviceId_1);
+    if (NULL == Config_1) return XST_FAILURE;
+
+    Status_1 = XUartPs_CfgInitialize(&Uart_1_PS, Config_1, Config_1->BaseAddress);
+    if (Status_1 != XST_SUCCESS) return XST_FAILURE;
+
+    u32 BaudRate = (u32)115200;
+    Status_1 = XUartPs_SetBaudRate(&Uart_1_PS, BaudRate);
+    if (Status_1 != (s32)XST_SUCCESS) return XST_FAILURE;
+
+    /***********************************************************
+     * Gestione Header e Dati
+     **********************************************************/
+    char line1[32], line2[32], line3[32];
+    read_line(line1, 32);
+    read_line(line2, 32);
+    read_line(line3, 32);
+
+    int width = 0, height = 0, i = 0;
+    while (line2[i] >= '0' && line2[i] <= '9') {
+        width = width * 10 + (line2[i++] - '0');
+    }
+    i++; // skip space
+    while (line2[i] >= '0' && line2[i] <= '9') {
+        height = height * 10 + (line2[i++] - '0');
+    }
+
+    int num_pixels = width * height * 3;
+    u8 *image = malloc(num_pixels);
+
+    if (image != NULL) {
+        // Ricezione
+        for (int j = 0; j < num_pixels; j++)
+            image[j] = XUartPs_RecvByte(UART_BASE);
+
+        // Algoritmo
+        apply_histogram_equalization(image, num_pixels);
+
+        // Invio Header
+        for (int j = 0; line1[j] != 0; j++) XUartPs_SendByte(UART_BASE, line1[j]);
+        for (int j = 0; line2[j] != 0; j++) XUartPs_SendByte(UART_BASE, line2[j]);
+        for (int j = 0; line3[j] != 0; j++) XUartPs_SendByte(UART_BASE, line3[j]);
+
+        // Invio Pixel
+        for (int j = 0; j < num_pixels; j++)
+            XUartPs_SendByte(UART_BASE, image[j]);
+
+        free(image);
+    }
+
+    cleanup_platform();
+    return 0;
+}

@@ -1,0 +1,173 @@
+/******************************************************************************
+ * Image Dynamic Range Optimizer - Adaptive Histogram Equalizer
+ * Target Hardware: Xilinx Zynq-7000 (Zybo Z7)
+ * * Descrizione:
+ * Questo modulo implementa un'ottimizzazione del contrasto tramite equalizzazione
+ * dell'istogramma. Riceve dati binari grezzi via interfaccia seriale, calcola
+ * la distribuzione cumulativa delle intensità e mappa i pixel su una nuova scala.
+ ******************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "platform.h"
+#include "xuartps.h"
+#include "xparameters.h"
+
+/* Configurazioni Hardware */
+#define SERIAL_DEVICE_ID    XPAR_PS7_UART_1_DEVICE_ID
+#define SERIAL_ADDR         XPAR_PS7_UART_1_BASEADDR
+#define BAUD_RATE           115200
+
+/* Definizioni per il protocollo PPM */
+#define MAX_HEADER_LEN      64
+#define COLOR_CHANNELS      3
+
+/**
+ * Procedura per il recupero di una stringa di testo dal terminale.
+ * Termina la lettura al carattere 'newline'.
+ */
+void fetch_text_line(char *buffer, int limit) {
+    int count = 0;
+    char input_char;
+
+    while (count < limit - 1) {
+        input_char = XUartPs_RecvByte(SERIAL_ADDR);
+        buffer[count++] = input_char;
+        if (input_char == '\n') break;
+    }
+    buffer[count] = '\0';
+}
+
+/**
+ * Converte una stringa numerica in un valore intero.
+ */
+int fast_atoi(const char *str) {
+    int result = 0;
+    while (*str >= '0' && *str <= '9') {
+        result = result * 10 + (*str - '0');
+        str++;
+    }
+    return result;
+}
+
+/**
+ * Algoritmo Core: Equalizzazione dell'Istogramma.
+ * Utilizza una Look-Up Table (LUT) per minimizzare i calcoli in virgola mobile.
+ */
+void process_frame_equalization(uint8_t *data_stream, int total_bytes) {
+    uint32_t frequency[256] = {0};
+    uint32_t cumulative[256] = {0};
+    uint8_t transform_lut[256];
+
+    /* 1. Analisi statistica delle intensità */
+    for (int i = 0; i < total_bytes; i++) {
+        frequency[data_stream[i]]++;
+    }
+
+    /* 2. Generazione della funzione di distribuzione cumulativa */
+    cumulative[0] = frequency[0];
+    for (int i = 1; i < 256; i++) {
+        cumulative[i] = cumulative[i - 1] + frequency[i];
+    }
+
+    /* 3. Identificazione del punto di densità minima */
+    uint32_t min_cdf = 0;
+    for (int i = 0; i < 256; i++) {
+        if (cumulative[i] != 0) {
+            min_cdf = cumulative[i];
+            break;
+        }
+    }
+
+    /* Caso limite: immagine uniforme */
+    if (min_cdf == (uint32_t)total_bytes) return;
+
+    /* 4. Pre-calcolo della tabella di trasformazione */
+    float denominator = (float)(total_bytes - min_cdf);
+    for (int i = 0; i < 256; i++) {
+        float normalized = (float)(cumulative[i] - min_cdf) / denominator;
+        int scaled_val = (int)(normalized * 255.0f + 0.5f); // Arrotondamento
+
+        if (scaled_val > 255) scaled_val = 255;
+        if (scaled_val < 0) scaled_val = 0;
+
+        transform_lut[i] = (uint8_t)scaled_val;
+    }
+
+    /* 5. Rimappatura veloce dei pixel tramite LUT */
+    for (int i = 0; i < total_bytes; i++) {
+        data_stream[i] = transform_lut[data_stream[i]];
+    }
+}
+
+/**
+ * Configurazione del modulo hardware UART.
+ */
+int init_serial_service(XUartPs *inst) {
+    XUartPs_Config *config;
+    int status;
+
+    config = XUartPs_LookupConfig(SERIAL_DEVICE_ID);
+    if (!config) return XST_FAILURE;
+
+    status = XUartPs_CfgInitialize(inst, config, config->BaseAddress);
+    if (status != XST_SUCCESS) return XST_FAILURE;
+
+    XUartPs_SetBaudRate(inst, BAUD_RATE);
+    return XST_SUCCESS;
+}
+
+int main() {
+    XUartPs serial_inst;
+    char h1[MAX_HEADER_LEN], h2[MAX_HEADER_LEN], h3[MAX_HEADER_LEN];
+    int img_w = 0, img_h = 0;
+
+    init_platform();
+
+    if (init_serial_service(&serial_inst) != XST_SUCCESS) {
+        return -1;
+    }
+
+    /* --- Fase 1: Acquisizione Metadati PPM --- */
+    fetch_text_line(h1, MAX_HEADER_LEN);
+    fetch_text_line(h2, MAX_HEADER_LEN);
+    fetch_text_line(h3, MAX_HEADER_LEN);
+
+    /* Estrazione manuale dimensioni riga 2 */
+    char *ptr = h2;
+    while (*ptr >= '0' && *ptr <= '9') {
+        img_w = img_w * 10 + (*ptr++ - '0');
+    }
+    ptr++; // Salta lo spazio
+    while (*ptr >= '0' && *ptr <= '9') {
+        img_h = img_h * 10 + (*ptr++ - '0');
+    }
+
+    int total_payload = img_w * img_h * COLOR_CHANNELS;
+
+    /* --- Fase 2: Gestione Buffer e Ricezione --- */
+    uint8_t *frame_buffer = (uint8_t *)malloc(total_payload);
+    if (frame_buffer == NULL) return -1;
+
+    for (int i = 0; i < total_payload; i++) {
+        frame_buffer[i] = XUartPs_RecvByte(SERIAL_ADDR);
+    }
+
+    /* --- Fase 3: Elaborazione --- */
+    process_frame_equalization(frame_buffer, total_payload);
+
+    /* --- Fase 4: Trasmissione Risultato --- */
+    // Invio Header
+    for (int i = 0; h1[i] != '\0'; i++) XUartPs_SendByte(SERIAL_ADDR, h1[i]);
+    for (int i = 0; h2[i] != '\0'; i++) XUartPs_SendByte(SERIAL_ADDR, h2[i]);
+    for (int i = 0; h3[i] != '\0'; i++) XUartPs_SendByte(SERIAL_ADDR, h3[i]);
+
+    // Invio Payload modificato
+    for (int i = 0; i < total_payload; i++) {
+        XUartPs_SendByte(SERIAL_ADDR, frame_buffer[i]);
+    }
+
+    free(frame_buffer);
+    cleanup_platform();
+    return 0;
+}

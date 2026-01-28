@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# 
+# Start of session at: Fri Nov 12 11:00:58 2021
+# Process ID: 27028
+# Current directory: /home/gderiu/project_5/project_5.sdk/webtalk
+# Command line: wbtcv -mode batch -source sdk_webtalk.tcl
+# Log file: /home/gderiu/project_5/project_5.sdk/webtalk/webtalk.log
+# Journal file: /home/gderiu/project_5/project_5.sdk/webtalk/webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl

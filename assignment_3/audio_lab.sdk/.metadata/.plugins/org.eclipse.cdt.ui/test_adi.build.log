@@ -1,0 +1,33 @@
+10:24:36 **** Auto Build of configuration Debug for project test_adi ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+ 
+Building file: ../src/helloworld.c
+Invoking: ARM v7 gcc compiler
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../test_adi_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+../src/helloworld.c: In function 'main':
+../src/helloworld.c:318:6: warning: unused variable 'j' [-Wunused-variable]
+  int j=0;
+      ^
+../src/helloworld.c:316:21: warning: unused variable 'bufferR' [-Wunused-variable]
+  int bufferL[N_HP], bufferR[N_HP];
+                     ^~~~~~~
+../src/helloworld.c:316:6: warning: unused variable 'bufferL' [-Wunused-variable]
+  int bufferL[N_HP], bufferR[N_HP];
+      ^~~~~~~
+Finished building: ../src/helloworld.c
+ 
+Building target: test_adi.elf
+Invoking: ARM v7 gcc linker
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../test_adi_bsp/ps7_cortexa9_0/lib -o "test_adi.elf"  ./src/helloworld.o ./src/platform.o ./src/timer_ps.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+Finished building target: test_adi.elf
+ 
+Invoking: ARM v7 Print Size
+arm-none-eabi-size test_adi.elf  |tee "test_adi.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  38488	   1728	  23352	  63568	   f850	test_adi.elf
+Finished building: test_adi.elf.size
+ 
+
+10:24:37 Build Finished (took 766ms)
+

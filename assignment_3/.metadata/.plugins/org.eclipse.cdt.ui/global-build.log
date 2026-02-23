@@ -1,0 +1,671 @@
+15:50:42 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:50:48 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:50:48 **** Incremental Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:51:17 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:51:17 **** Incremental Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:52:02 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:52:03 **** Incremental Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:52:20 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:52:20 **** Incremental Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:52:47 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+15:52:47 **** Incremental Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+16:17:45 **** Auto Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/master.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O3 -g3 -c -fmessage-length=0 -MT"src/master.o" -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -fopt-info-vec-optimized -fopt-info-vec-missed -ffast-math -I../../master_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/master.d" -MT"src/master.o" -o "src/master.o" "../src/master.c"
+In file included from ../src/master.c:30:
+../../master_bsp/ps7_cortexa9_0/include/xtime_l.h:87:9: note: #pragma message: For the sleep routines, Global timer is being used
+ #pragma message ("For the sleep routines, Global timer is being used")
+         ^~~~~~~
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: can't use a fully-masked loop because the target doesn't have the appropriate masked load or store.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: loop vectorized
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: vect__4.13_44 = MEM[(const u32 *)vectp_a.11_42];
+ scalar_type: const vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: vect__6.16_47 = MEM[(const u32 *)vectp_b.14_45];
+ scalar_type: const vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: MEM[(u32 *)vectp_c.18_49] = vect__8.17_48;
+ scalar_type: vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no grouped stores in basic block.
+../src/master.c:43:14: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not consecutive access _4 = *_3;
+../src/master.c:42:5: note: not consecutive access _6 = *_5;
+../src/master.c:42:5: note: not consecutive access *_7 = _8;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../src/master.c:42:5: note: not consecutive access _58 = *_57;
+../src/master.c:42:5: note: not consecutive access _60 = *_59;
+../src/master.c:42:5: note: not consecutive access *_61 = _62;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../src/master.c:42:29: note: not consecutive access _25 = *_26;
+../src/master.c:42:29: note: not consecutive access _23 = *_24;
+../src/master.c:42:29: note: not consecutive access *_19 = _18;
+../src/master.c:42:29: note: not vectorized: no grouped stores in basic block.
+../src/master.c:45:1: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:147:5: note: not vectorized: empty loop.
+../src/master.c:147:5: note: bad loop form.
+../src/master.c:100:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:100:5: note: bad data references.
+../src/master.c:100:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:100:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:81:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:81:11: note: bad loop form.
+../src/master.c:78:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:78:5: note: bad data references.
+../src/master.c:74:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:74:11: note: bad loop form.
+../src/master.c:131:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:131:5: note: bad data references.
+../src/master.c:42:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:42:5: note: bad data references.
+../src/master.c:62:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:62:5: note: bad data references.
+../src/master.c:50:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:50:11: note: bad loop form.
+../src/master.c:117:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:118:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:120:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:120:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:50:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:50:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:61:20: note: not vectorized: base addr of dr is a constant
+../src/master.c:61:20: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:62:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:62:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:127:5: note: not vectorized: not enough data-refs in basic block.
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: base addr of dr is a constant
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not consecutive access *_25 = _26;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: base addr of dr is a constant
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:131:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:131:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:134:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:137:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:137:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:74:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:74:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:77:19: note: not vectorized: base addr of dr is a constant
+../src/master.c:77:19: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:78:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:78:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:80:19: note: not vectorized: base addr of dr is a constant
+../src/master.c:80:19: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:81:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:81:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:84:34: note: not vectorized: base addr of dr is a constant
+../src/master.c:84:34: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:84:34: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:139:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:91:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:91:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:101:12: note: not vectorized: base addr of dr is a constant
+../src/master.c:101:12: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:102:16: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:100:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:144:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:144:5: note: not vectorized: not enough data-refs in basic block.
+'Finished building: ../src/master.c'
+' '
+'Building target: master.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../master_bsp/ps7_cortexa9_0/lib -o "master.elf"  ./src/master.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: master.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size master.elf  |tee "master.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  33528	   1544	  23672	  58744	   e578	master.elf
+'Finished building: master.elf.size'
+' '
+16:17:49 **** Auto Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/worker.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/worker.o" -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -fopt-info-vec-optimized -fopt-info-vec-missed -ffast-math -I../../worker_bsp/ps7_cortexa9_1/include -MMD -MP -MF"src/worker.d" -MT"src/worker.o" -o "src/worker.o" "../src/worker.c"
+'Finished building: ../src/worker.c'
+' '
+'Building target: worker.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../worker_bsp/ps7_cortexa9_1/lib -o "worker.elf"  ./src/platform.o ./src/worker.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: worker.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size worker.elf  |tee "worker.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22780	   1144	  22568	  46492	   b59c	worker.elf
+'Finished building: worker.elf.size'
+' '
+16:17:51 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+16:17:51 **** Incremental Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+16:22:37 **** Auto Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/worker.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/worker.o" -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -fopt-info-vec-optimized -fopt-info-vec-missed -ffast-math -I../../worker_bsp/ps7_cortexa9_1/include -MMD -MP -MF"src/worker.d" -MT"src/worker.o" -o "src/worker.o" "../src/worker.c"
+'Finished building: ../src/worker.c'
+' '
+'Building target: worker.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../worker_bsp/ps7_cortexa9_1/lib -o "worker.elf"  ./src/platform.o ./src/worker.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: worker.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size worker.elf  |tee "worker.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22812	   1144	  22568	  46524	   b5bc	worker.elf
+'Finished building: worker.elf.size'
+' '
+16:22:42 **** Auto Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/master.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O3 -g3 -c -fmessage-length=0 -MT"src/master.o" -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -fopt-info-vec-optimized -fopt-info-vec-missed -ffast-math -I../../master_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/master.d" -MT"src/master.o" -o "src/master.o" "../src/master.c"
+In file included from ../src/master.c:30:
+../../master_bsp/ps7_cortexa9_0/include/xtime_l.h:87:9: note: #pragma message: For the sleep routines, Global timer is being used
+ #pragma message ("For the sleep routines, Global timer is being used")
+         ^~~~~~~
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: can't use a fully-masked loop because the target doesn't have the appropriate masked load or store.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: loop vectorized
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: vect__4.13_44 = MEM[(const u32 *)vectp_a.11_42];
+ scalar_type: const vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: vect__6.16_47 = MEM[(const u32 *)vectp_b.14_45];
+ scalar_type: const vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: MEM[(u32 *)vectp_c.18_49] = vect__8.17_48;
+ scalar_type: vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no grouped stores in basic block.
+../src/master.c:43:14: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not consecutive access _4 = *_3;
+../src/master.c:42:5: note: not consecutive access _6 = *_5;
+../src/master.c:42:5: note: not consecutive access *_7 = _8;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../src/master.c:42:5: note: not consecutive access _58 = *_57;
+../src/master.c:42:5: note: not consecutive access _60 = *_59;
+../src/master.c:42:5: note: not consecutive access *_61 = _62;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../src/master.c:42:29: note: not consecutive access _25 = *_26;
+../src/master.c:42:29: note: not consecutive access _23 = *_24;
+../src/master.c:42:29: note: not consecutive access *_19 = _18;
+../src/master.c:42:29: note: not vectorized: no grouped stores in basic block.
+../src/master.c:45:1: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:147:5: note: not vectorized: empty loop.
+../src/master.c:147:5: note: bad loop form.
+../src/master.c:100:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:100:5: note: bad data references.
+../src/master.c:100:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:100:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:81:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:81:11: note: bad loop form.
+../src/master.c:78:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:78:5: note: bad data references.
+../src/master.c:74:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:74:11: note: bad loop form.
+../src/master.c:131:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:131:5: note: bad data references.
+../src/master.c:42:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:42:5: note: bad data references.
+../src/master.c:62:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:62:5: note: bad data references.
+../src/master.c:50:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:50:11: note: bad loop form.
+../src/master.c:117:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:118:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:120:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:120:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:50:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:50:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:61:20: note: not vectorized: base addr of dr is a constant
+../src/master.c:61:20: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:62:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:62:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:127:5: note: not vectorized: not enough data-refs in basic block.
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: base addr of dr is a constant
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not consecutive access *_25 = _26;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: base addr of dr is a constant
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:131:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:131:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:134:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:137:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:137:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:74:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:74:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:77:19: note: not vectorized: base addr of dr is a constant
+../src/master.c:77:19: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:78:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:78:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:80:19: note: not vectorized: base addr of dr is a constant
+../src/master.c:80:19: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:81:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:81:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:84:34: note: not vectorized: base addr of dr is a constant
+../src/master.c:84:34: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:84:34: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:139:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:91:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:91:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:101:12: note: not vectorized: base addr of dr is a constant
+../src/master.c:101:12: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:102:16: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:100:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:144:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:144:5: note: not vectorized: not enough data-refs in basic block.
+'Finished building: ../src/master.c'
+' '
+'Building target: master.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../master_bsp/ps7_cortexa9_0/lib -o "master.elf"  ./src/master.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: master.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size master.elf  |tee "master.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  33640	   1544	  27272	  62456	   f3f8	master.elf
+'Finished building: master.elf.size'
+' '
+16:22:49 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+16:22:49 **** Incremental Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+16:27:15 **** Auto Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/master.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O3 -g3 -c -fmessage-length=0 -MT"src/master.o" -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -fopt-info-vec-optimized -fopt-info-vec-missed -ffast-math -I../../master_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/master.d" -MT"src/master.o" -o "src/master.o" "../src/master.c"
+In file included from ../src/master.c:30:
+../../master_bsp/ps7_cortexa9_0/include/xtime_l.h:87:9: note: #pragma message: For the sleep routines, Global timer is being used
+ #pragma message ("For the sleep routines, Global timer is being used")
+         ^~~~~~~
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: can't use a fully-masked loop because the target doesn't have the appropriate masked load or store.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: loop vectorized
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: vect__4.13_44 = MEM[(const u32 *)vectp_a.11_42];
+ scalar_type: const vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: vect__6.16_47 = MEM[(const u32 *)vectp_b.14_45];
+ scalar_type: const vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: MEM[(u32 *)vectp_c.18_49] = vect__8.17_48;
+ scalar_type: vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no grouped stores in basic block.
+../src/master.c:43:14: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not consecutive access _4 = *_3;
+../src/master.c:42:5: note: not consecutive access _6 = *_5;
+../src/master.c:42:5: note: not consecutive access *_7 = _8;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../src/master.c:42:5: note: not consecutive access _58 = *_57;
+../src/master.c:42:5: note: not consecutive access _60 = *_59;
+../src/master.c:42:5: note: not consecutive access *_61 = _62;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../src/master.c:42:29: note: not consecutive access _25 = *_26;
+../src/master.c:42:29: note: not consecutive access _23 = *_24;
+../src/master.c:42:29: note: not consecutive access *_19 = _18;
+../src/master.c:42:29: note: not vectorized: no grouped stores in basic block.
+../src/master.c:45:1: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:147:5: note: not vectorized: empty loop.
+../src/master.c:147:5: note: bad loop form.
+../src/master.c:100:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:100:5: note: bad data references.
+../src/master.c:100:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:100:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:81:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:81:11: note: bad loop form.
+../src/master.c:78:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:78:5: note: bad data references.
+../src/master.c:74:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:74:11: note: bad loop form.
+../src/master.c:131:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:131:5: note: bad data references.
+../src/master.c:42:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:42:5: note: bad data references.
+../src/master.c:62:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:62:5: note: bad data references.
+../src/master.c:50:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:50:11: note: bad loop form.
+../src/master.c:117:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:118:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:120:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:120:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:50:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:50:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:61:20: note: not vectorized: base addr of dr is a constant
+../src/master.c:61:20: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:62:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:62:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:127:5: note: not vectorized: not enough data-refs in basic block.
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: base addr of dr is a constant
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not consecutive access *_25 = _26;
+../src/master.c:42:5: note: group is too large
+../src/master.c:42:5: note: not vectorized: complicated access pattern.
+../src/master.c:42:5: note: not consecutive access _24 = *_23;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: base addr of dr is a constant
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:131:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:131:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:134:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:137:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:137:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:74:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:74:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:77:19: note: not vectorized: base addr of dr is a constant
+../src/master.c:77:19: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:78:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:78:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:80:19: note: not vectorized: base addr of dr is a constant
+../src/master.c:80:19: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:81:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:81:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:84:34: note: not vectorized: base addr of dr is a constant
+../src/master.c:84:34: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:84:34: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:139:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:91:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:91:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:101:12: note: not vectorized: base addr of dr is a constant
+../src/master.c:101:12: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:102:16: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:100:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:144:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:144:5: note: not vectorized: not enough data-refs in basic block.
+'Finished building: ../src/master.c'
+' '
+'Building target: master.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../master_bsp/ps7_cortexa9_0/lib -o "master.elf"  ./src/master.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: master.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size master.elf  |tee "master.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  33724	   1544	  63272	  98540	  180ec	master.elf
+'Finished building: master.elf.size'
+' '
+16:27:21 **** Auto Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/worker.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/worker.o" -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -fopt-info-vec-optimized -fopt-info-vec-missed -ffast-math -I../../worker_bsp/ps7_cortexa9_1/include -MMD -MP -MF"src/worker.d" -MT"src/worker.o" -o "src/worker.o" "../src/worker.c"
+'Finished building: ../src/worker.c'
+' '
+'Building target: worker.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../worker_bsp/ps7_cortexa9_1/lib -o "worker.elf"  ./src/platform.o ./src/worker.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: worker.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size worker.elf  |tee "worker.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22828	   1144	  22568	  46540	   b5cc	worker.elf
+'Finished building: worker.elf.size'
+' '
+16:27:27 **** Auto Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/worker.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/worker.o" -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -fopt-info-vec-optimized -fopt-info-vec-missed -ffast-math -I../../worker_bsp/ps7_cortexa9_1/include -MMD -MP -MF"src/worker.d" -MT"src/worker.o" -o "src/worker.o" "../src/worker.c"
+'Finished building: ../src/worker.c'
+' '
+'Building target: worker.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../worker_bsp/ps7_cortexa9_1/lib -o "worker.elf"  ./src/platform.o ./src/worker.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: worker.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size worker.elf  |tee "worker.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22828	   1144	  22568	  46540	   b5cc	worker.elf
+'Finished building: worker.elf.size'
+' '
+16:27:31 **** Auto Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+'Building file: ../src/master.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O3 -g3 -c -fmessage-length=0 -MT"src/master.o" -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -fopt-info-vec-optimized -fopt-info-vec-missed -ffast-math -I../../master_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/master.d" -MT"src/master.o" -o "src/master.o" "../src/master.c"
+In file included from ../src/master.c:30:
+../../master_bsp/ps7_cortexa9_0/include/xtime_l.h:87:9: note: #pragma message: For the sleep routines, Global timer is being used
+ #pragma message ("For the sleep routines, Global timer is being used")
+         ^~~~~~~
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: Unknown misalignment, naturally aligned
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: can't use a fully-masked loop because the target doesn't have the appropriate masked load or store.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: not ssa-name.
+../src/master.c:42:5: note: use not simple.
+../src/master.c:42:5: note: loop vectorized
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: vect__4.13_44 = MEM[(const u32 *)vectp_a.11_42];
+ scalar_type: const vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: vect__6.16_47 = MEM[(const u32 *)vectp_b.14_45];
+ scalar_type: const vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no vectype for stmt: MEM[(u32 *)vectp_c.18_49] = vect__8.17_48;
+ scalar_type: vector(4) long unsigned int
+../src/master.c:43:14: note: not vectorized: no grouped stores in basic block.
+../src/master.c:43:14: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not consecutive access _4 = *_3;
+../src/master.c:42:5: note: not consecutive access _6 = *_5;
+../src/master.c:42:5: note: not consecutive access *_7 = _8;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../src/master.c:42:5: note: not consecutive access _58 = *_57;
+../src/master.c:42:5: note: not consecutive access _60 = *_59;
+../src/master.c:42:5: note: not consecutive access *_61 = _62;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../src/master.c:42:29: note: not consecutive access _25 = *_26;
+../src/master.c:42:29: note: not consecutive access _23 = *_24;
+../src/master.c:42:29: note: not consecutive access *_19 = _18;
+../src/master.c:42:29: note: not vectorized: no grouped stores in basic block.
+../src/master.c:45:1: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:147:5: note: not vectorized: empty loop.
+../src/master.c:147:5: note: bad loop form.
+../src/master.c:100:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:100:5: note: bad data references.
+../src/master.c:100:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:100:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:81:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:81:11: note: bad loop form.
+../src/master.c:78:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:78:5: note: bad data references.
+../src/master.c:74:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:74:11: note: bad loop form.
+../src/master.c:131:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:131:5: note: bad data references.
+../src/master.c:42:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:42:5: note: bad data references.
+../src/master.c:62:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:62:5: note: bad data references.
+../src/master.c:50:11: note: not vectorized: number of iterations cannot be computed.
+../src/master.c:50:11: note: bad loop form.
+../src/master.c:117:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:118:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:120:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:120:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:50:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:50:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:61:20: note: not vectorized: base addr of dr is a constant
+../src/master.c:61:20: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:62:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:62:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:127:5: note: not vectorized: not enough data-refs in basic block.
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: base addr of dr is a constant
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:42:5: note: not consecutive access *_25 = _26;
+../src/master.c:42:5: note: group is too large
+../src/master.c:42:5: note: not vectorized: complicated access pattern.
+../src/master.c:42:5: note: not consecutive access _24 = *_23;
+../src/master.c:42:5: note: not vectorized: no grouped stores in basic block.
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: base addr of dr is a constant
+../../master_bsp/ps7_cortexa9_0/include/xil_io.h:149:9: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:131:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:131:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:134:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:137:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:137:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:74:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:74:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:77:19: note: not vectorized: base addr of dr is a constant
+../src/master.c:77:19: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:78:5: note: not vectorized: base addr of dr is a constant
+../src/master.c:78:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:80:19: note: not vectorized: base addr of dr is a constant
+../src/master.c:80:19: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:81:11: note: not vectorized: base addr of dr is a constant
+../src/master.c:81:11: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:84:34: note: not vectorized: base addr of dr is a constant
+../src/master.c:84:34: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:84:34: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:139:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:91:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:91:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:101:12: note: not vectorized: base addr of dr is a constant
+../src/master.c:101:12: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:102:16: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:100:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:144:5: note: not vectorized: not enough data-refs in basic block.
+../src/master.c:144:5: note: not vectorized: not enough data-refs in basic block.
+'Finished building: ../src/master.c'
+' '
+'Building target: master.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=neon -mfloat-abi=hard -std=c99 -mvectorize-with-neon-quad -ftree-vectorize -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../master_bsp/ps7_cortexa9_0/lib -o "master.elf"  ./src/master.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: master.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size master.elf  |tee "master.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  33716	   1544	  43272	  78532	  132c4	master.elf
+'Finished building: master.elf.size'
+' '
+16:27:39 **** Incremental Build of configuration Debug for project worker ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.
+16:27:39 **** Incremental Build of configuration Debug for project master ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+' '
+make: Nothing to be done for 'main-build'.

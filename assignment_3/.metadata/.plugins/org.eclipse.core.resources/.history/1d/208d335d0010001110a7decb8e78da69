@@ -1,0 +1,112 @@
+/*
+ * Assignment 3 - Dual-core vector addition (Core 0 / master)
+ * UniCa - Advanced Embedded Systems (AES)
+ *
+ * Compares serial vs parallel execution of C = A + B on Zynq dual Cortex-A9.
+ * Core 0 runs the full vector in serial (baseline), then the first half in
+ * parallel while Core 1 runs the second half. Timing via ARM Global Timer
+ * (32-bit LSB only). Sync via shared DDR region.
+ */
+
+#include "xparameters.h"
+#include "xil_cache.h"
+#include "xil_printf.h"
+#include "shared.h"
+#include "xil_io.h"
+#include "xtime_l.h"
+
+#define GTIMER_LO  0x00U
+
+static inline u32 get_timer_cycles(void)
+{
+    return Xil_In32(XPAR_GLOBAL_TMR_BASEADDR + GTIMER_LO);
+}
+
+u32 t_begin, t_finish;
+
+/* Serial kernel: out[j] = va[j] + vb[j] for j = 0..len-1 */
+static void vec_add_serial(u32 * restrict out,
+                           const u32 * restrict va,
+                           const u32 * restrict vb,
+                           int len)
+{
+    int j;
+    for (j = 0; j < len; j++)
+        out[j] = va[j] + vb[j];
+}
+
+int main(void)
+{
+    int k;
+    static u32 ref_C[ARRAY_SIZE];  /* reference result for check */
+
+    Xil_ICacheDisable();
+    Xil_DCacheDisable();
+
+    xil_printf("Started.\r\n");
+    xil_printf("=== Dual-core vector add (SERIAL vs PARALLEL) ===\r\n");
+    xil_printf("ARRAY_SIZE = %d\r\n", ARRAY_SIZE);
+
+    /* Wait for GPIO (button) before starting */
+    while (Xil_In32(XPAR_AXI_GPIO_2_BASEADDR) == 0)
+        ;
+
+    SHARED->start  = FLAG_RESET;
+    SHARED->done0  = FLAG_RESET;
+    SHARED->done1  = FLAG_RESET;
+
+    for (k = 0; k < ARRAY_SIZE; k++) {
+        SHARED->A[k] = (u32)k;
+        SHARED->B[k] = (u32)(2 * k);
+        SHARED->C[k] = 0;
+    }
+
+    /* --- Serial run (baseline) --- */
+    xil_printf("Core 0: SERIAL run...\r\n");
+    t_begin  = get_timer_cycles();
+    vec_add_serial(ref_C, (const u32 *)SHARED->A, (const u32 *)SHARED->B, ARRAY_SIZE);
+    t_finish = get_timer_cycles();
+    u32 cy_serial = t_finish - t_begin;
+    xil_printf("Core 0: SERIAL done, cycles = %lu\r\n", (unsigned long)cy_serial);
+
+    for (k = 0; k < ARRAY_SIZE; k++)
+        SHARED->C[k] = 0;
+
+    /* --- Parallel run --- */
+    xil_printf("Core 0: PARALLEL run...\r\n");
+    while (SHARED->ready1 != FLAG_SET)
+        ;
+
+    xil_printf("Core 0: worker ready, running parallel section.\r\n");
+
+    t_begin = get_timer_cycles();
+    SHARED->start = FLAG_SET;
+
+    for (k = 0; k < ARRAY_SIZE / 2; k++)
+        SHARED->C[k] = SHARED->A[k] + SHARED->B[k];
+    SHARED->done0 = FLAG_SET;
+
+    while (SHARED->done1 != FLAG_SET)
+        ;
+    t_finish = get_timer_cycles();
+    u32 cy_parallel = t_finish - t_begin;
+    if (cy_parallel == 0)
+        cy_parallel = 1;
+    u32 speedup_100 = (cy_serial * 100) / cy_parallel;
+
+    xil_printf("\r\n--- TIMING ---\r\n");
+    xil_printf("Serial   cycles: %lu\r\n", (unsigned long)cy_serial);
+    xil_printf("Parallel cycles: %lu\r\n", (unsigned long)cy_parallel);
+    xil_printf("Speedup: %lu.%02lu x\r\n", speedup_100 / 100, speedup_100 % 100);
+
+    int err = 0;
+    for (k = 0; k < ARRAY_SIZE; k++) {
+        if (SHARED->C[k] != ref_C[k])
+            err++;
+    }
+    xil_printf("Errors: %d\r\n", err);
+
+    for (;;)
+        ;
+    return 0;
+}

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;mnist_group/src/helloworld.c&apos;" deleteContents="false" description="Delete resource &apos;mnist_group/src/helloworld.c&apos;" element1="/mnist_group/src/helloworld.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1771963114849"/>
-</session>

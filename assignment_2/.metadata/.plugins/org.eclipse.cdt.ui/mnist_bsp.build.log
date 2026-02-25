@@ -1,6 +1,0 @@
-00:11:23 **** Auto Build of project mnist_bsp ****
-make -k all 
-make: *** No rule to make target 'all'.
-
-00:11:23 Build Finished (took 108ms)
-

@@ -78,6 +78,7 @@ static void run_uart_loop(void);
 /* ---------------------------------------------------------------------------
  * Main
  * --------------------------------------------------------------------------- */
+/* Init platform and UART, print banner, run offline test then UART inference loop. */
 int main(void) {
     init_platform();
 
@@ -104,12 +105,14 @@ int main(void) {
 /* ---------------------------------------------------------------------------
  * UART
  * --------------------------------------------------------------------------- */
+/* Block until one byte is received. */
 static inline u8 uart_inbyte(void) {
     u8 b;
     while (XUartPs_Recv(&Uart_1_PS, &b, 1) != 1);
     return b;
 }
 
+/* MODE 0: read 2 bytes (LSB-first) as Q8.8. MODE 1/2: read 1 byte (Q0.8), extend to Q8.8 by left shift. */
 #if MODE == 0
 static DATA readfromUART(void) {
     u8 lsb = uart_inbyte();
@@ -123,6 +126,7 @@ static DATA readfromUART(void) {
 }
 #endif
 
+/* Lookup and init UART PS, set baud rate to 115200. */
 static int uart_init(void) {
     XUartPs_Config *cfg = XUartPs_LookupConfig(XPAR_PS7_UART_1_DEVICE_ID);
     if (!cfg) return XST_FAILURE;
@@ -133,6 +137,7 @@ static int uart_init(void) {
     return XST_SUCCESS;
 }
 
+/* Read IMG_SIZE pixels from UART into image[] (format depends on MODE). */
 static void uart_receive_image(DATA *image) {
     for (int i = 0; i < IMG_SIZE; i++)
         image[i] = readfromUART();
@@ -141,6 +146,7 @@ static void uart_receive_image(DATA *image) {
 /* ---------------------------------------------------------------------------
  * Fully Connected layers
  * --------------------------------------------------------------------------- */
+/* output = weights * input + bias in Q8.8; mac in 64-bit, then >> qf. */
 void FC_forward(DATA *input, DATA *output, int in_s, int out_s,
                 DATA *weights, DATA *bias, int qf) {
     for (int h = 0; h < out_s; h++) {
@@ -152,6 +158,8 @@ void FC_forward(DATA *input, DATA *output, int in_s, int out_s,
 }
 
 #if MODE == 2
+/* FC with Q1.7 weights/bias: scale to Q8.8 via <<1, then MAC in 64-bit; mac = multiply-accumulate
+   accumulator (bias + sum of input*weight), kept shifted by qf to avoid overflow; result >> qf. */
 void FC_forward_q17(DATA *input, DATA *output, int in_s, int out_s,
                     const signed char *weights, const signed char *bias, int qf) {
     for (int h = 0; h < out_s; h++) {
@@ -165,11 +173,13 @@ void FC_forward_q17(DATA *input, DATA *output, int in_s, int out_s,
 }
 #endif
 
+/* ReLU: output[i] = max(0, input[i]). */
 static inline void relu_forward(DATA *input, DATA *output, int size) {
     for (int i = 0; i < size; i++)
         output[i] = input[i] > 0 ? input[i] : 0;
 }
 
+/* Convert logits from fixed-point to float, return index of maximum (predicted class 0..size_wa-1). */
 int resultsProcessing(DATA *results, int size) {
     int size_wa = (size > SIZEWA) ? SIZEWA : size;
     float results_float[SIZEWA];
@@ -191,6 +201,7 @@ int resultsProcessing(DATA *results, int size) {
 /* ---------------------------------------------------------------------------
  * DNN inference
  * --------------------------------------------------------------------------- */
+/* FC0 -> ReLU -> FC1 -> argmax; uses FC_forward or FC_forward_q17 depending on MODE. */
 static int dnn_inference(DATA *image) {
     static DATA out0[64], in1[64], out1[10];
 
@@ -214,8 +225,9 @@ static int dnn_inference(DATA *image) {
 /* ---------------------------------------------------------------------------
  * Offline test
  * --------------------------------------------------------------------------- */
+/* Load 10 embedded images, run inference for each, print expected vs predicted. */
 static void run_offline_test(void) {
-    /* test_images.h: values 0-256 (Q8.8). Use (DATA)t[i] directly, NOT t[i]<<8 (overflow). */
+    /* test_images.h: values 0-256 (Q8.8). */
     { int t[] = {imm_test_0}; for (int i = 0; i < IMG_SIZE; i++) immagine[0][i] = (DATA)t[i]; }
     { int t[] = {imm_test_1}; for (int i = 0; i < IMG_SIZE; i++) immagine[1][i] = (DATA)t[i]; }
     { int t[] = {imm_test_2}; for (int i = 0; i < IMG_SIZE; i++) immagine[2][i] = (DATA)t[i]; }
@@ -239,6 +251,7 @@ static void run_offline_test(void) {
 /* ---------------------------------------------------------------------------
  * UART loop
  * --------------------------------------------------------------------------- */
+/* Wait for image over UART, run inference, print prediction and timing (RX, DNN, PRINT, total us). */
 static void run_uart_loop(void) {
     static DATA image_uart[IMG_SIZE];
     XTime t0, t1, t2, t3;

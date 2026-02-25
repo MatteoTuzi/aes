@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[italian]{babel}
+\usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{listings}
@@ -11,7 +11,7 @@
 \usepackage{geometry}
 \geometry{margin=2.5cm}
 
-% Dimensioni fisse per le immagini
+% Fixed dimensions for figures
 \newcommand{\imgwidthlarge}{12cm}
 \newcommand{\imgwidthsmall}{10cm}
 
@@ -23,9 +23,9 @@
     numberstyle=\tiny
 }
 
-\title{Lab 5 -- DNN su MNIST (Group 0)\\
-\large Ottimizzazioni Fixed-Point e Inferenza su Embedded}
-\author{Corso AES}
+\title{Lab 5 -- DNN on MNIST (Group 0)\\
+\large Fixed-Point Optimizations and Embedded Inference}
+\author{AES Course}
 \date{\today}
 
 \begin{document}
@@ -34,193 +34,259 @@
 \newpage
 
 %==============================================================================
-\section{Introduzione}
+\section{Introduction}
 %==============================================================================
 
-Il presente report descrive l'implementazione di una rete neurale fully-connected per la classificazione del dataset MNIST, ottimizzata per l'esecuzione su piattaforma embedded (Zynq). La rete è stata sviluppata per il \textbf{Group 0} e applica le ottimizzazioni descritte nel documento ``Tips and tricks for optimization''.
+This report describes the implementation of a fully-connected neural network for MNIST classification, optimized for execution on an embedded platform (Zynq). The network was developed for \textbf{Group 0} and applies the optimizations described in the document ``Tips and tricks for optimization''.
 
-L'obiettivo principale è ridurre memoria e tempo di trasmissione tramite l'uso di aritmetica fixed-point (formati Q8.8, Q0.8, Q1.7) mantenendo un'accuratezza accettabile.
+The main goal is to reduce memory and transmission time through the use of fixed-point arithmetic (Q8.8, Q0.8, Q1.7 formats) while maintaining acceptable accuracy.
 
 %==============================================================================
-\section{Architettura della rete}
+\section{Network Architecture}
 %==============================================================================
 
-La rete implementata ha topologia \textbf{784 $\rightarrow$ 64 $\rightarrow$ 10}:
+The implemented network has topology \textbf{784 $\rightarrow$ 64 $\rightarrow$ 10}:
 \begin{itemize}
-    \item \textbf{Input}: immagine MNIST 28$\times$28 in scala di grigi (784 pixel)
-    \item \textbf{FC0}: layer fully-connected 784$\rightarrow$64
-    \item \textbf{ReLU}: attivazione non lineare
-    \item \textbf{FC1}: layer fully-connected 64$\rightarrow$10 (output)
+    \item \textbf{Input}: 28$\times$28 grayscale MNIST image (784 pixels)
+    \item \textbf{FC0}: fully-connected layer 784$\rightarrow$64
+    \item \textbf{ReLU}: nonlinear activation
+    \item \textbf{FC1}: fully-connected layer 64$\rightarrow$10 (output)
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm]{architecture.png}
-    \caption{Architettura della rete neurale (schema concettuale). L'implementazione Group 0 utilizza 784$\rightarrow$64$\rightarrow$10.}
+    \caption{Neural network architecture (conceptual diagram). Group 0 implementation uses 784$\rightarrow$64$\rightarrow$10.}
     \label{fig:architecture}
 \end{figure}
 
 %==============================================================================
-\section{Formati fixed-point (Q)}
+\section{Fixed-Point Formats (Q)}
 %==============================================================================
 
-L'aritmetica fixed-point è essenziale per sistemi embedded. La notazione \textbf{Qm.n} indica:
+As stated in ``Tips and tricks for optimization''~\ref{ref:tipstricks}, the chosen format for weights and activations is \textbf{Q8.8}. Fixed-point arithmetic is essential for embedded systems. The \textbf{Qm.n} notation denotes:
 \begin{itemize}
-    \item \textbf{m}: bit per la parte intera (incluso segno)
-    \item \textbf{n}: bit per la parte frazionaria
-    \item Valore reale: $\frac{\text{valore\_rappresentato}}{2^n}$
+    \item \textbf{m}: bits for the integer part (including sign)
+    \item \textbf{n}: bits for the fractional part
+    \item Real value: $\frac{\text{represented\_value}}{2^n}$
 \end{itemize}
 
-\subsection{Formati utilizzati}
+\subsection{Formats Used}
 
 \begin{table}[H]
 \centering
 \begin{tabular}{@{}lllll@{}}
 \toprule
-\textbf{Formato} & \textbf{Bit} & \textbf{Tipo C} & \textbf{Uso} & \textbf{Range} \\
+\textbf{Format} & \textbf{Bits} & \textbf{C type} & \textbf{Use} & \textbf{Range} \\
 \midrule
-Q8.8 & 16 & \texttt{short} & Immagini, pesi (baseline) & $\approx$ $-128$ -- $+128$ \\
-Q0.8 & 8 & \texttt{unsigned char} & Immagini via UART (TIP1) & $0$ -- $\approx 1$ \\
-Q1.7 & 8 & \texttt{signed char} & Pesi (TIP2) & $\approx$ $-1$ -- $+1$ \\
+Q8.8 & 16 & \texttt{short} & Images, weights (baseline) & $\approx$ $-128$ -- $+128$ \\
+Q0.8 & 8 & \texttt{unsigned char} & Images via UART (TIP1) & $0$ -- $\approx 1$ \\
+Q1.7 & 8 & \texttt{signed char} & Weights (TIP2) & $\approx$ $-1$ -- $+1$ \\
 \bottomrule
 \end{tabular}
-\caption{Formati fixed-point utilizzati nel progetto}
+\caption{Fixed-point formats used in the project}
 \end{table}
 
-\subsection{Conversione tra formati}
+\subsection{Conversion Between Formats}
 
 \begin{itemize}
-    \item \textbf{Q8.8 $\rightarrow$ Q0.8}: \texttt{q08 = q88 >> 8} (riduzione banda UART)
-    \item \textbf{Q8.8 $\rightarrow$ Q1.7}: \texttt{q17 = clamp(q88 >> 1, -128, 127)} (riduzione memoria pesi)
+    \item \textbf{Q8.8 $\rightarrow$ Q0.8}: \texttt{q08 = q88 >> 8} (UART bandwidth reduction)
+    \item \textbf{Q8.8 $\rightarrow$ Q1.7}: \texttt{q17 = clamp(q88 >> 1, -128, 127)} (weight memory reduction)
     \item \textbf{Q1.7 $\rightarrow$ Q8.8} (in C): \texttt{q88 = (short)q17 << 1}
 \end{itemize}
 
 %==============================================================================
-\section{Ottimizzazioni implementate}
+\section{Implemented Optimizations}
 %==============================================================================
 
-\subsection{MODE 0 -- Configurazione di partenza (baseline)}
+\subsection{MODE 0 -- Baseline Configuration}
 
-Il \textbf{MODE 0} rappresenta la configurazione di riferimento del Group 0, senza ottimizzazioni. Tutti i dati sono in formato Q8.8 (16 bit):
+\textbf{MODE 0} is the reference configuration for Group 0, with no optimizations. All data use Q8.8 format (16 bit):
 \begin{itemize}
-    \item \textbf{Immagini}: 2 byte per pixel $\Rightarrow$ 1568 byte per immagine via UART
-    \item \textbf{Pesi}: 2 byte per peso $\Rightarrow$ $\sim$100\,KB totali (50176 + 640 + 128 + 20)
-    \item \textbf{Precisione}: massima, nessuna quantizzazione aggiuntiva
+    \item \textbf{Images}: 2 bytes per pixel $\Rightarrow$ 1568 bytes per image via UART
+    \item \textbf{Weights}: 2 bytes per weight $\Rightarrow$ $\sim$100\,KB total (50176 + 640 + 128 + 20)
+    \item \textbf{Precision}: maximum, no additional quantization
 \end{itemize}
-Questa configurazione serve da riferimento per confrontare accuratezza e prestazioni delle versioni ottimizzate.
+This configuration serves as a reference to compare accuracy and performance of the optimized versions.
 
-\subsection{Confronto con le ottimizzazioni}
+\subsection{MODE 1 -- TIP1 (Image format optimization)}
+
+As stated in ``Tips and tricks for optimization'', inspecting the image data with a hex editor shows that the \textbf{most significant byte of each pixel is always 0x00}: MNIST pixels are in $[0,1]$ and are positive, so in Q8.8 the high byte carries no useful information. \textbf{TIP1} exploits this by using a \textbf{Q0.8} representation for the image over the link: 1 byte per pixel (8 fractional bits, no integer part) instead of 2 bytes (Q8.8).
+
+\paragraph{Rationale.} Sending 784 bytes per image instead of 1568 cuts UART transfer time in half. This is the main bottleneck when images are sent repeatedly (e.g. from a host PC or camera).
+
+\paragraph{Implementation.} On the host/sender side, images are converted to Q0.8 (e.g. \texttt{q08 = q88 >> 8}) before transmission. On the embedded board, \texttt{readfromUART()} reads a single byte per pixel and reconstructs Q8.8 with \texttt{(short)px << 8}, so the rest of the pipeline (FC layers, ReLU, argmax) is unchanged. Weights and biases stay in Q8.8; only the image input format and UART protocol change.
+
+\subsection{MODE 2 -- TIP1 + TIP2 (Image + weight format optimization)}
+
+Inspecting the weight and bias files with a hex editor shows that the \textbf{most significant byte of each 16-bit value is always 0x00 or 0xFF}: the magnitude is in the fractional part, and the integer part effectively encodes only the sign. So weights and biases can be represented in \textbf{Q1.7} (1 sign bit, 7 fractional bits) with minimal impact on accuracy.
+
+\paragraph{Rationale.} Storing weights and biases in Q1.7 (\texttt{signed char}) halves memory usage (1 byte per parameter instead of 2). Saving time when sending weights over UART is a minor gain, since DNN parameters are typically sent once at startup; the main benefit is \textbf{reduced on-board memory occupation}.
+
+\paragraph{Implementation.} Weight and bias arrays are stored in Q1.7 in \texttt{weights\_group0.h} (e.g. \texttt{weights0\_q17}, \texttt{bias0\_q17}). In \texttt{FC\_forward\_q17()}, each 8-bit weight/bias is scaled back for the MAC: \texttt{(short)weights[i] << 1} and \texttt{(short)bias[h] << 1} align Q1.7 to the internal Q8.8 scale so that the existing fixed-point MAC logic (with \texttt{>> qf}) remains correct. No change to the image path: MODE 2 still uses TIP1 for the image (784 bytes UART). Accuracy stays comparable to the baseline because the useful information in the weights is in the fractional part, which Q1.7 preserves.
+
+\subsection{Comparison with Optimizations}
 
 \begin{table}[H]
 \centering
 \begin{tabular}{@{}lccc@{}}
 \toprule
-\textbf{Parametro} & \textbf{MODE 0} & \textbf{MODE 1 (TIP1)} & \textbf{MODE 2 (TIP1+TIP2)} \\
+\textbf{Parameter} & \textbf{MODE 0} & \textbf{MODE 1 (TIP1)} & \textbf{MODE 2 (TIP1+TIP2)} \\
 \midrule
-Byte UART/immagine & 1568 & 784 & 784 \\
-Memoria pesi & $\sim$100\,KB & $\sim$100\,KB & $\sim$50\,KB \\
-Formato immagini & Q8.8 & Q0.8$\rightarrow$Q8.8 & Q0.8$\rightarrow$Q8.8 \\
-Formato pesi & Q8.8 & Q8.8 & Q1.7$\rightarrow$Q8.8 \\
+UART bytes/image & 1568 & 784 & 784 \\
+Weight memory & $\sim$100\,KB & $\sim$100\,KB & $\sim$50\,KB \\
+Image format & Q8.8 & Q0.8$\rightarrow$Q8.8 & Q0.8$\rightarrow$Q8.8 \\
+Weight format & Q8.8 & Q8.8 & Q1.7$\rightarrow$Q8.8 \\
 \midrule
-Riduzione vs baseline & -- & 50\% UART & 50\% UART + 50\% pesi \\
+Reduction vs baseline & -- & 50\% UART & 50\% UART + 50\% weights \\
 \bottomrule
 \end{tabular}
-\caption{Confronto MODE 0 (baseline) con le ottimizzazioni}
+\caption{Comparison of MODE 0 (baseline) with optimizations}
 \end{table}
 
-\textbf{MODE 1 (TIP1)}: riduce il traffico UART del 50\% inviando 1 byte per pixel (Q0.8) invece di 2. L'embedded ricostruisce Q8.8 con \texttt{(short)px << 8}. I pesi restano Q8.8.
-
-\textbf{MODE 2 (TIP1+TIP2)}: oltre a TIP1, quantizza i pesi in Q1.7 (1 byte ciascuno), dimezzando la memoria. La conversione avviene in \texttt{FC\_forward\_q17} durante il calcolo MAC. L'accuratezza rimane confrontabile grazie alla limitata perdita di precisione nella quantizzazione.
-
 %==============================================================================
-\section{Implementazione software}
+\section{Software Implementation}
 %==============================================================================
 
-\subsection{Struttura del codice}
+\subsection{Code Structure}
 
-Il file principale \texttt{mnist\_group0.c} contiene:
+The main file \texttt{mnist\_group0.c} implements a two-layer fully-connected DNN for MNIST classification (784$\rightarrow$64$\rightarrow$10) on an embedded platform (Zynq), with three modes selectable via \texttt{MODE} (0=baseline, 1=TIP1, 2=TIP1+TIP2). Below is the general code structure.
+
+\subsubsection{Configuration and Constants}
 \begin{itemize}
-    \item Inizializzazione immagini da \texttt{test\_images.h}
-    \item Ricezione UART (formato dipendente da MODE)
-    \item \texttt{FC\_forward} / \texttt{FC\_forward\_q17} per i layer fully-connected
-    \item \texttt{relu\_forward} per l'attivazione ReLU
-    \item \texttt{resultsProcessing} per l'argmax sull'output
-    \item Misurazione tempi (RX, DNN, PRINT) tramite \texttt{XTime\_GetTime}
+    \item \texttt{MODE}: 0 = baseline (Q8.8 images via UART, normal weights); 1 = TIP1 (Q0.8 images, 784 bytes UART); 2 = TIP1+TIP2 (Q0.8 + Q1.7 weights).
+    \item Dimensions: \texttt{IMG\_SIZE}=784, \texttt{N\_BIAS0/1}, \texttt{N\_WEIGHTS0/1} for the two layers.
+    \item \texttt{DATA}: \texttt{short int} type for activations and weights.
+    \item Macro \texttt{FIXED2FLOAT}: conversion from fixed-point to float for the final result.
 \end{itemize}
 
+\subsubsection{Global Variables}
+\begin{itemize}
+    \item Weights and bias: in MODE 2, \texttt{signed char} arrays (Q1.7) from \texttt{weights\_group0.h} are used; otherwise \texttt{DATA} (Q8.8).
+    \item \texttt{immagine[10][IMG\_SIZE]}: buffer for the 10 offline test images.
+    \item \texttt{Uart\_1\_PS}: UART instance for image reception.
+\end{itemize}
+
+\subsubsection{Main}
+\begin{itemize}
+    \item Initializes platform and UART; prints banner with active mode.
+    \item Runs \emph{offline test} on the 10 images in \texttt{test\_images.h}.
+    \item Enters the \emph{UART loop} that receives images and runs inference in a continuous cycle.
+\end{itemize}
+
+\subsubsection{UART}
+\begin{itemize}
+    \item \texttt{uart\_inbyte()}: reads one byte (blocking).
+    \item \texttt{readfromUART()}: in MODE 0 reads 2 bytes (Q8.8, LSB-first); in MODE 1/2 reads 1 byte per pixel and interprets it as Q0.8 (\texttt{(short)px << 8}).
+    \item \texttt{uart\_init()}: configures UART at 115200 baud.
+    \item \texttt{uart\_receive\_image()}: reads \texttt{IMG\_SIZE} values and writes them to \texttt{image[]}.
+\end{itemize}
+
+\subsubsection{Fully-Connected Layers}
+\begin{itemize}
+    \item \texttt{FC\_forward()}: for each output neuron accumulates \texttt{bias[h]<<qf} and the MAC with \texttt{input} and \texttt{weights}; result in fixed-point with \texttt{>> qf}.
+    \item \texttt{FC\_forward\_q17()} (MODE 2 only): same logic with \texttt{signed char} weights/bias (Q1.7); bias and weights are scaled with \texttt{<< 1} to align with internal format (Q8.8).
+\end{itemize}
+
+\subsubsection{ReLU and Post-Processing}
+\begin{itemize}
+    \item \texttt{relu\_forward()}: \texttt{output[i] = max(0, input[i])}.
+    \item \texttt{resultsProcessing()}: converts the last 10 logits from fixed to float, finds the index of the maximum and returns it as the predicted class (0--9).
+\end{itemize}
+
+\subsubsection{DNN Inference}
+The function \texttt{dnn\_inference(image)}:
+\begin{enumerate}
+    \item FC0: 784$\rightarrow$64 (uses \texttt{FC\_forward} or \texttt{FC\_forward\_q17} depending on MODE).
+    \item ReLU on the 64 outputs $\rightarrow$ \texttt{in1}.
+    \item FC1: 64$\rightarrow$10.
+    \item \texttt{resultsProcessing(out1, 10)} $\rightarrow$ predicted class index.
+\end{enumerate}
+
+\subsubsection{Offline Test}
+Copies the 10 images from \texttt{imm\_test\_0}--\texttt{imm\_test\_9} (in \texttt{test\_images.h}) into \texttt{immagine[][]}; for each image calls \texttt{dnn\_inference(immagine[i])} and prints \texttt{expected=i}, \texttt{predicted=pred}.
+
+\subsubsection{UART Loop}
+Message indicating the expected format (1568 bytes in MODE 0, 784 bytes in MODE 1/2). In the loop: records time \texttt{t0}, receives the image (\texttt{t1}), runs \texttt{dnn\_inference} (\texttt{t2}), prints the prediction and \texttt{usleep}, then \texttt{t3}. Prints times in $\mu$s: RX (reception), DNN (inference), PRINT (print + sleep), total.
+
+\paragraph{Data flow.}
+\begin{center}
+UART (784 or 1568 bytes) $\rightarrow$ \texttt{image[]} $\rightarrow$ FC0(784$\rightarrow$64) $\rightarrow$ ReLU $\rightarrow$ FC1(64$\rightarrow$10) $\rightarrow$ argmax $\rightarrow$ class 0--9
+\end{center}
+
 %==============================================================================
-\section{Risultati sperimentali}
+\section{Experimental Results}
 %==============================================================================
 
-\subsection{Validazione su immagini incorporate}
+\subsection{Validation on Embedded Images}
 
-La validazione utilizza 10 immagini di riferimento (cifre 0--9) incorporate nel firmware. Per ogni immagine viene stampato \texttt{expected} e \texttt{predicted}.
+Validation uses 10 reference images (digits 0--9) embedded in the firmware. For each image, \texttt{expected} and \texttt{predicted} are printed.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\imgwidthlarge]{offline_test_q8.8.png}
-    \caption{Validazione -- MODE 0 (baseline Q8.8)}
+    \caption{Validation -- MODE 0 (baseline Q8.8)}
     \label{fig:offline_q88}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\imgwidthlarge]{offline_test_TIP1.png}
-    \caption{Validazione -- MODE 1 (TIP1, immagini Q0.8)}
+    \caption{Validation -- MODE 1 (TIP1, Q0.8 images)}
     \label{fig:offline_tip1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\imgwidthlarge]{offline_test_TIP1TIP2.png}
-    \caption{Validazione -- MODE 2 (TIP1+TIP2, pesi Q1.7)}
+    \caption{Validation -- MODE 2 (TIP1+TIP2, Q1.7 weights)}
     \label{fig:offline_tip2}
 \end{figure}
 
-\subsection{Test via UART}
+\subsection{UART Test}
 
-Con immagini inviate da PC (formato Q0.8 per TIP1/TIP2, Q8.8 per baseline), la board risponde con la predizione e i tempi misurati (RX, DNN, PRINT).
+With images sent from the PC (Q0.8 format for TIP1/TIP2, Q8.8 for baseline), the board responds with the prediction and measured times (RX, DNN, PRINT).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\imgwidthsmall]{0_guessed.png}
-    \caption{Esempio di predizione via UART -- immagine cifra 0}
+    \caption{Example of UART prediction -- digit 0 image}
     \label{fig:uart_0}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\imgwidthsmall]{0_guessed_TIP1.png}
-    \caption{Predizione via UART con TIP1}
+    \caption{UART prediction with TIP1}
     \label{fig:uart_tip1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\imgwidthsmall]{0_guess_TIP1TIP2.png}
-    \caption{Predizione via UART con TIP1+TIP2}
+    \caption{UART prediction with TIP1+TIP2}
     \label{fig:uart_tip2}
 \end{figure}
 
 %==============================================================================
-\section{Conclusioni}
+\section{Conclusions}
 %==============================================================================
 
-L'implementazione dimostra che le ottimizzazioni TIP1 e TIP2 consentono di:
+The implementation shows that TIP1 and TIP2 optimizations allow to:
 \begin{itemize}
-    \item Ridurre il traffico UART del 50\% (784 vs 1568 byte per immagine)
-    \item Ridurre la memoria per i pesi del 50\% (Q1.7 vs Q8.8)
-    \item Mantenere un'accuratezza confrontabile con la baseline
+    \item Reduce UART traffic by 50\% (784 vs 1568 bytes per image)
+    \item Reduce weight memory by 50\% (Q1.7 vs Q8.8)
+    \item Maintain accuracy comparable to the baseline
 \end{itemize}
 
-La correzione dell'overflow nell'inizializzazione delle immagini è stata essenziale per ottenere predizioni corrette in tutte le modalità.
+Fixing the overflow in image initialization was essential to obtain correct predictions in all modes.
 
 %==============================================================================
-\section*{Riferimenti}
+\section*{References}
 %==============================================================================
 
-\begin{itemize}
-    \item Tips and tricks for optimization (PDF)
-\end{itemize}
+\begin{enumerate}
+    \item \label{ref:tipstricks} Tips and tricks for optimization (PDF), course material -- fixed-point formats (Q8.8, Q0.8, Q1.7), Tip 1 (image Q0.8 over UART), Tip 2 (weights/bias Q1.7, memory and UART).
+\end{enumerate}
 
 \end{document}

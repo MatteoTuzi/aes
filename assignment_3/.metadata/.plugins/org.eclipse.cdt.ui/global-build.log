@@ -669,3 +669,6 @@ make pre-build main-build
 a9-linaro-pre-build-step
 ' '
 make: Nothing to be done for 'main-build'.
+17:29:58 **** Auto Build of project worker_bsp ****
+make -k all 
+make: *** No rule to make target 'all'.

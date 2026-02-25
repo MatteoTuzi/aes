@@ -1,0 +1,5 @@
+17:30:20 INFO  : Registering command handlers for SDK TCF services
+17:30:21 INFO  : Launching XSCT server: xsct.bat -interactive C:\Users\super\OneDrive\Desktop\Universita\aes\assignment_5\temp_xsdb_launch_script.tcl
+17:30:24 INFO  : XSCT server has started successfully.
+17:30:27 INFO  : Successfully done setting XSCT server connection channel  
+17:30:27 INFO  : Successfully done setting SDK workspace  

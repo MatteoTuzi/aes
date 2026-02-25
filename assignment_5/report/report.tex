@@ -1,0 +1,226 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+% Dimensioni fisse per le immagini
+\newcommand{\imgwidthlarge}{12cm}
+\newcommand{\imgwidthsmall}{10cm}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny
+}
+
+\title{Lab 5 -- DNN su MNIST (Group 0)\\
+\large Ottimizzazioni Fixed-Point e Inferenza su Embedded}
+\author{Corso AES}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+%==============================================================================
+\section{Introduzione}
+%==============================================================================
+
+Il presente report descrive l'implementazione di una rete neurale fully-connected per la classificazione del dataset MNIST, ottimizzata per l'esecuzione su piattaforma embedded (Zynq). La rete è stata sviluppata per il \textbf{Group 0} e applica le ottimizzazioni descritte nel documento ``Tips and tricks for optimization''.
+
+L'obiettivo principale è ridurre memoria e tempo di trasmissione tramite l'uso di aritmetica fixed-point (formati Q8.8, Q0.8, Q1.7) mantenendo un'accuratezza accettabile.
+
+%==============================================================================
+\section{Architettura della rete}
+%==============================================================================
+
+La rete implementata ha topologia \textbf{784 $\rightarrow$ 64 $\rightarrow$ 10}:
+\begin{itemize}
+    \item \textbf{Input}: immagine MNIST 28$\times$28 in scala di grigi (784 pixel)
+    \item \textbf{FC0}: layer fully-connected 784$\rightarrow$64
+    \item \textbf{ReLU}: attivazione non lineare
+    \item \textbf{FC1}: layer fully-connected 64$\rightarrow$10 (output)
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{architecture.png}
+    \caption{Architettura della rete neurale (schema concettuale). L'implementazione Group 0 utilizza 784$\rightarrow$64$\rightarrow$10.}
+    \label{fig:architecture}
+\end{figure}
+
+%==============================================================================
+\section{Formati fixed-point (Q)}
+%==============================================================================
+
+L'aritmetica fixed-point è essenziale per sistemi embedded. La notazione \textbf{Qm.n} indica:
+\begin{itemize}
+    \item \textbf{m}: bit per la parte intera (incluso segno)
+    \item \textbf{n}: bit per la parte frazionaria
+    \item Valore reale: $\frac{\text{valore\_rappresentato}}{2^n}$
+\end{itemize}
+
+\subsection{Formati utilizzati}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{Formato} & \textbf{Bit} & \textbf{Tipo C} & \textbf{Uso} & \textbf{Range} \\
+\midrule
+Q8.8 & 16 & \texttt{short} & Immagini, pesi (baseline) & $\approx$ $-128$ -- $+128$ \\
+Q0.8 & 8 & \texttt{unsigned char} & Immagini via UART (TIP1) & $0$ -- $\approx 1$ \\
+Q1.7 & 8 & \texttt{signed char} & Pesi (TIP2) & $\approx$ $-1$ -- $+1$ \\
+\bottomrule
+\end{tabular}
+\caption{Formati fixed-point utilizzati nel progetto}
+\end{table}
+
+\subsection{Conversione tra formati}
+
+\begin{itemize}
+    \item \textbf{Q8.8 $\rightarrow$ Q0.8}: \texttt{q08 = q88 >> 8} (riduzione banda UART)
+    \item \textbf{Q8.8 $\rightarrow$ Q1.7}: \texttt{q17 = clamp(q88 >> 1, -128, 127)} (riduzione memoria pesi)
+    \item \textbf{Q1.7 $\rightarrow$ Q8.8} (in C): \texttt{q88 = (short)q17 << 1}
+\end{itemize}
+
+%==============================================================================
+\section{Ottimizzazioni implementate}
+%==============================================================================
+
+\subsection{MODE 0 -- Configurazione di partenza (baseline)}
+
+Il \textbf{MODE 0} rappresenta la configurazione di riferimento del Group 0, senza ottimizzazioni. Tutti i dati sono in formato Q8.8 (16 bit):
+\begin{itemize}
+    \item \textbf{Immagini}: 2 byte per pixel $\Rightarrow$ 1568 byte per immagine via UART
+    \item \textbf{Pesi}: 2 byte per peso $\Rightarrow$ $\sim$100\,KB totali (50176 + 640 + 128 + 20)
+    \item \textbf{Precisione}: massima, nessuna quantizzazione aggiuntiva
+\end{itemize}
+Questa configurazione serve da riferimento per confrontare accuratezza e prestazioni delle versioni ottimizzate.
+
+\subsection{Confronto con le ottimizzazioni}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Parametro} & \textbf{MODE 0} & \textbf{MODE 1 (TIP1)} & \textbf{MODE 2 (TIP1+TIP2)} \\
+\midrule
+Byte UART/immagine & 1568 & 784 & 784 \\
+Memoria pesi & $\sim$100\,KB & $\sim$100\,KB & $\sim$50\,KB \\
+Formato immagini & Q8.8 & Q0.8$\rightarrow$Q8.8 & Q0.8$\rightarrow$Q8.8 \\
+Formato pesi & Q8.8 & Q8.8 & Q1.7$\rightarrow$Q8.8 \\
+\midrule
+Riduzione vs baseline & -- & 50\% UART & 50\% UART + 50\% pesi \\
+\bottomrule
+\end{tabular}
+\caption{Confronto MODE 0 (baseline) con le ottimizzazioni}
+\end{table}
+
+\textbf{MODE 1 (TIP1)}: riduce il traffico UART del 50\% inviando 1 byte per pixel (Q0.8) invece di 2. L'embedded ricostruisce Q8.8 con \texttt{(short)px << 8}. I pesi restano Q8.8.
+
+\textbf{MODE 2 (TIP1+TIP2)}: oltre a TIP1, quantizza i pesi in Q1.7 (1 byte ciascuno), dimezzando la memoria. La conversione avviene in \texttt{FC\_forward\_q17} durante il calcolo MAC. L'accuratezza rimane confrontabile grazie alla limitata perdita di precisione nella quantizzazione.
+
+%==============================================================================
+\section{Implementazione software}
+%==============================================================================
+
+\subsection{Struttura del codice}
+
+Il file principale \texttt{mnist\_group0.c} contiene:
+\begin{itemize}
+    \item Inizializzazione immagini da \texttt{test\_images.h}
+    \item Ricezione UART (formato dipendente da MODE)
+    \item \texttt{FC\_forward} / \texttt{FC\_forward\_q17} per i layer fully-connected
+    \item \texttt{relu\_forward} per l'attivazione ReLU
+    \item \texttt{resultsProcessing} per l'argmax sull'output
+    \item Misurazione tempi (RX, DNN, PRINT) tramite \texttt{XTime\_GetTime}
+\end{itemize}
+
+%==============================================================================
+\section{Risultati sperimentali}
+%==============================================================================
+
+\subsection{Validazione su immagini incorporate}
+
+La validazione utilizza 10 immagini di riferimento (cifre 0--9) incorporate nel firmware. Per ogni immagine viene stampato \texttt{expected} e \texttt{predicted}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\imgwidthlarge]{offline_test_q8.8.png}
+    \caption{Validazione -- MODE 0 (baseline Q8.8)}
+    \label{fig:offline_q88}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\imgwidthlarge]{offline_test_TIP1.png}
+    \caption{Validazione -- MODE 1 (TIP1, immagini Q0.8)}
+    \label{fig:offline_tip1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\imgwidthlarge]{offline_test_TIP1TIP2.png}
+    \caption{Validazione -- MODE 2 (TIP1+TIP2, pesi Q1.7)}
+    \label{fig:offline_tip2}
+\end{figure}
+
+\subsection{Test via UART}
+
+Con immagini inviate da PC (formato Q0.8 per TIP1/TIP2, Q8.8 per baseline), la board risponde con la predizione e i tempi misurati (RX, DNN, PRINT).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\imgwidthsmall]{0_guessed.png}
+    \caption{Esempio di predizione via UART -- immagine cifra 0}
+    \label{fig:uart_0}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\imgwidthsmall]{0_guessed_TIP1.png}
+    \caption{Predizione via UART con TIP1}
+    \label{fig:uart_tip1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\imgwidthsmall]{0_guess_TIP1TIP2.png}
+    \caption{Predizione via UART con TIP1+TIP2}
+    \label{fig:uart_tip2}
+\end{figure}
+
+%==============================================================================
+\section{Conclusioni}
+%==============================================================================
+
+L'implementazione dimostra che le ottimizzazioni TIP1 e TIP2 consentono di:
+\begin{itemize}
+    \item Ridurre il traffico UART del 50\% (784 vs 1568 byte per immagine)
+    \item Ridurre la memoria per i pesi del 50\% (Q1.7 vs Q8.8)
+    \item Mantenere un'accuratezza confrontabile con la baseline
+\end{itemize}
+
+La correzione dell'overflow nell'inizializzazione delle immagini è stata essenziale per ottenere predizioni corrette in tutte le modalità.
+
+%==============================================================================
+\section*{Riferimenti}
+%==============================================================================
+
+\begin{itemize}
+    \item Tips and tricks for optimization (PDF)
+\end{itemize}
+
+\end{document}
